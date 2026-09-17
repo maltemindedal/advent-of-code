@@ -48,7 +48,7 @@ class DisjointSet:
 
 
 def parse_input(lines: list[str]) -> list[Point3D]:
-    """Parse junction box coordinates from the raw input lines."""
+    """Parse junction box coordinates."""
 
     points: list[Point3D] = []
     for line in lines:
@@ -89,7 +89,7 @@ def connect_closest(
     pairs_to_connect: int,
     distance: DistanceFn,
 ) -> CircuitResult:
-    """Connect the ``pairs_to_connect`` closest pairs and summarize circuit sizes."""
+    """Connect the closest pairs and return the circuit sizes."""
 
     n = len(points)
     if n == 0:
@@ -108,10 +108,10 @@ def connect_closest(
 
 
 def last_connection_product(points: list[Point3D], distance: DistanceFn) -> int:
-    """Return the product of X coordinates of the edge that finishes connectivity.
+    """Return the X-coordinate product of the edge that finishes connectivity.
 
-    Edges are considered in order of increasing distance; the first edge that
-    reduces the circuit count to 1 determines the answer.
+    Edges are processed from shortest to longest. The first edge that joins
+    all circuits determines the answer.
     """
 
     n = len(points)

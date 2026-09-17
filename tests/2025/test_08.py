@@ -59,6 +59,5 @@ def test_last_connection_product_simple_triangle() -> None:
         (0, 10, 0),
     ]
 
-    # Closest edges are (0,1) and (0,2) both with distance 10; the second of those
-    # completes connectivity, producing product 0 * 0 = 0.
+    # The second distance-10 edge completes connectivity, so the product is 0.
     assert day08.part2(points) == 0

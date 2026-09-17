@@ -27,7 +27,7 @@ def test_sample_accessible_rolls() -> None:
 
 
 def test_edge_cells_count_neighbours_correctly() -> None:
-    # Grid where only center has 8 neighbours; others have fewer
+    # Only the center has eight neighbours; the other cells have fewer.
     grid = day04.parse_input(
         [
             "@@@",
@@ -35,8 +35,8 @@ def test_edge_cells_count_neighbours_correctly() -> None:
             "@@@",
         ]
     )
-    # Center has 8 neighbours => not accessible; corners have 3 (<4) but edges have 5.
-    # Accessible: 4 corners only
+    # The center has eight neighbours and is not accessible. The corners have three,
+    # while the edges have five. Only the four corners are accessible.
     assert day04.part1(grid) == 4
 
 
@@ -48,5 +48,5 @@ def test_iterative_removal_clears_full_block() -> None:
             "@@@",
         ]
     )
-    # Removals cascade until all 9 rolls are gone
+    # Removals cascade until all nine rolls are gone.
     assert day04.part2(grid) == 9

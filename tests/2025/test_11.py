@@ -57,7 +57,7 @@ def test_unreachable_output() -> None:
         ]
     )
     assert day11.part1(graph) == 0
-    # Start is "svr" by default for part2; unreachable graph should yield 0.
+    # Part 2 starts at "svr" by default, so this graph returns 0.
     assert day11.part2(graph) == 0
 
 

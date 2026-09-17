@@ -38,11 +38,10 @@ def parse_input(lines: list[str]) -> list[IdRange]:
 
 
 def _repeated_twice_values(start: int, end: int) -> Iterable[int]:
-    """Yield numbers in [start, end] that are exactly two repeats of a digit block.
+    """Yield numbers in [start, end] that repeat a digit block exactly twice.
 
     A valid number has an even digit length 2k and looks like ``dd...dd`` (k digits twice),
-    with no leading zeros. For efficiency, we derive candidate bases instead of scanning
-    every integer in the interval.
+    with no leading zeros. Candidate bases avoid scanning every integer in the interval.
     """
 
     min_len = len(str(start))
@@ -74,10 +73,10 @@ def _repeated_twice_values(start: int, end: int) -> Iterable[int]:
 
 
 def _repeated_values(start: int, end: int, at_least_repeats: int) -> Iterable[int]:
-    """Yield numbers in [start, end] that are a digit block repeated >= N times.
+    """Yield numbers in [start, end] that repeat a digit block at least N times.
 
-    Numbers have no leading zeros. Uses constructive enumeration by digit length and
-    block size to avoid scanning every integer.
+    Numbers have no leading zeros. Build candidates by digit length and block size
+    instead of scanning every integer.
     """
 
     min_len = len(str(start))
@@ -126,7 +125,7 @@ def part2(ranges: list[IdRange]) -> int:
 
 
 def run(variant: str | None = None) -> None:
-    """Run day02 solution and print results."""
+    """Read the input and print both answers."""
 
     lines = read_input_lines(YEAR, DAY, variant)
     ranges = parse_input(lines)

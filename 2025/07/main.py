@@ -7,10 +7,10 @@ DAY = 7
 
 
 def _prepare_grid(lines: list[str]) -> tuple[list[str], tuple[int, int]]:
-    """Pad the grid to uniform width and locate the start position.
+    """Pad the grid and find the start position.
 
-    Missing characters at the end of a row are treated as empty space (`.`).
-    Returns the padded grid and the (row, col) of `S`.
+    Missing characters at the end of a row become empty space (`.`). Return
+    the padded grid and the (row, col) of `S`.
     """
 
     if not lines:
@@ -33,13 +33,11 @@ def _prepare_grid(lines: list[str]) -> tuple[list[str], tuple[int, int]]:
 
 
 def count_splits(lines: list[str]) -> int:
-    """Count how many times beams are split while traversing the manifold.
+    """Count beam splits while traversing the manifold.
 
-    Beams always move downward. When a beam encounters a splitter (`^`), that
-    beam stops and two new beams emerge from the immediate left and right of
-    the splitter. Beams travelling through empty space (`.`) continue
-    downward. Multiple beams may overlap; overlapping beams are treated as a
-    single beam path for the purposes of further propagation.
+    Beams move downward. A splitter (`^`) stops a beam and sends two beams to
+    the adjacent columns. Empty space (`.`) lets a beam continue. Overlapping
+    beams count as one path.
     """
 
     grid, (start_row, start_col) = _prepare_grid(lines)
@@ -96,7 +94,7 @@ def part2(lines: list[str]) -> int:
         if not active:
             break
 
-    # Timelines that leave the bottom of the grid.
+    # Count timelines that leave the bottom of the grid.
     return sum(active.values())
 
 

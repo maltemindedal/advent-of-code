@@ -18,8 +18,7 @@ class Problem:
 def _segments_from_columns(padded: list[str]) -> list[tuple[int, int]]:
     """Return column spans for each problem.
 
-    A separator column is one that is entirely spaces across all rows. Any
-    maximal run of non-separator columns forms a segment belonging to a single
+    A separator column contains only spaces. Each run of other columns is one
     problem.
     """
 
@@ -52,7 +51,7 @@ def _pad_lines(lines: list[str]) -> list[str]:
 
 
 def parse_input(lines: list[str]) -> list[Problem]:
-    """Parse raw input lines into problems (left-to-right, row-oriented).
+    """Parse row-oriented problems from the input lines.
 
     Each column of the input represents a digit (or space). A full column of
     spaces separates problems. The bottom row contains the operator (`+` or
@@ -89,7 +88,7 @@ def parse_input(lines: list[str]) -> list[Problem]:
 
 
 def parse_input_columns(lines: list[str]) -> list[Problem]:
-    """Parse problems when numbers are written top-to-bottom within columns.
+    """Parse problems whose numbers run top-to-bottom within columns.
 
     Problems are still separated by a full column of spaces; within each
     problem, *each column* forms one number whose most significant digit is at
@@ -120,12 +119,10 @@ def parse_input_columns(lines: list[str]) -> list[Problem]:
             raise ValueError(f"Missing operator for columns {start}-{end}")
         op = op_chars[0]
 
-        # Problems are read right-to-left, so reverse the number order to make
-        # the rightmost column the first operand; the operation is commutative
-        # but this preserves the described reading direction.
+        # Read each problem from right to left.
         problems.append(Problem(list(reversed(numbers)), op))
 
-    # Entire worksheet is read right-to-left across problems as well.
+    # Read the worksheet from right to left as well.
     return list(reversed(problems))
 
 
@@ -151,7 +148,7 @@ def part2(lines: list[str]) -> int:
 
 
 def run(variant: str | None = None) -> None:
-    """Run day06 solution and print results."""
+    """Read the input and print both answers."""
 
     lines = read_input_lines(YEAR, DAY, variant)
     problems_lr = parse_input(lines)

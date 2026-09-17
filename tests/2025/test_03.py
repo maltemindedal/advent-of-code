@@ -38,9 +38,9 @@ def test_bank_maximum_in_order() -> None:
 
 def test_max_k_digits_helper_general() -> None:
     helper = day03._max_joltage_k_digits
-    # pick 12 digits from descending then ones
+    # Pick 12 digits from the descending sequence, followed by ones.
     assert helper("987654321111111", 12) == 987654321111
-    # ensure drops trim from end when no better digit appears
+    # Ensure drops trim from the end when no better digit appears.
     assert helper("111234", 3) == 234
-    # ensure greedy keeps order across ups and downs
+    # Ensure the greedy algorithm keeps digits in order across increases and drops.
     assert helper("818181911112111", 12) == 888911112111

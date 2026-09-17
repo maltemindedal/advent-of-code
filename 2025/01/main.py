@@ -31,7 +31,7 @@ def parse_input(lines: list[str]) -> list[Rotation]:
 
 
 def apply_rotation(position: int, rotation: Rotation) -> int:
-    """Apply one rotation on a 0-99 dial returning the new position."""
+    """Apply a rotation and return the new position on a dial numbered 0 to 99."""
 
     if rotation.direction == "L":
         return (position - rotation.steps) % 100
@@ -53,8 +53,8 @@ def part1(rotations: list[Rotation], start: int = 50) -> int:
 def part2(rotations: list[Rotation], start: int = 50) -> int:
     """Count how many clicks land on 0 during all rotations.
 
-    Every click is considered, not just the position after the rotation
-    finishes. The dial has values 0-99.
+    Count clicks that land on 0, including those before each rotation finishes.
+    The dial has values 0 to 99.
     """
 
     def zero_hits(position: int, rotation: Rotation) -> int:
@@ -89,7 +89,7 @@ def part2(rotations: list[Rotation], start: int = 50) -> int:
 
 
 def run(variant: str | None = None) -> None:
-    """Run day01 solution and print results."""
+    """Read the input and print both answers."""
 
     lines = read_input_lines(YEAR, DAY, variant)
     rotations = parse_input(lines)

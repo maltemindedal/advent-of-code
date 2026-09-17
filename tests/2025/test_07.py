@@ -31,11 +31,9 @@ def test_chain_reaction_with_adjacent_splitters() -> None:
         ".....",
     ]
 
-    # First splitter creates two beams; the next row contains three splitters
-    # that split the two incoming beams into three total beams.
+    # The first splitter creates two beams. The next row produces three.
     assert day07.part1(diagram) == 3
-    # Quantum version keeps both timelines even when paths converge at the
-    # middle column on the following row.
+    # Part 2 keeps both timelines when paths converge in the middle column.
     assert day07.part2(diagram) == 4
 
 
@@ -47,7 +45,6 @@ def test_timelines_preserved_on_merge() -> None:
         "...",
     ]
 
-    # Beams from the first splitter hit two splitters that both send beams
-    # into the center column; quantum timelines add rather than merge.
+    # Both splitters send beams into the center column. Part 2 adds the paths.
     assert day07.part1(diagram) == 3
     assert day07.part2(diagram) == 2

@@ -145,7 +145,7 @@ def _flip_x(cells: Iterable[tuple[int, int]]) -> list[tuple[int, int]]:
 
 
 def _orientations_from_grid(grid: list[str]) -> list[ShapeOrientation]:
-    """Return all unique orientations (rotations + horizontal flips)."""
+    """Return all unique rotations and horizontal flips."""
 
     base = _cells_from_grid(grid)
     if not base:
@@ -293,7 +293,7 @@ def can_fit_region(shapes: dict[int, list[str]], region: tuple[int, int, list[in
     if (w * h) <= 220 and total_pieces <= 14:
         return _can_fit_exact(shape_oris, w, h, counts)
 
-    # Large regions: area/bounds check only.
+    # For large regions, check only area and bounds.
     return True
 
 

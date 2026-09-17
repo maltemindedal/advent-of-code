@@ -18,7 +18,7 @@ class IdRange:
 def parse_input(lines: list[str]) -> tuple[list[IdRange], list[int]]:
     """Parse fresh ranges and available ingredient IDs.
 
-    The input is divided by a blank line:
+    The input has two sections separated by a blank line:
     - before the blank line: inclusive ranges in the form ``start-end``
     - after the blank line: one ingredient ID per line
     """
@@ -86,10 +86,9 @@ def part1(ranges: list[IdRange], available_ids: list[int]) -> int:
 
 
 def part2(ranges: list[IdRange], available_ids: list[int] | None = None) -> int:
-    """Count how many ingredient IDs are considered fresh by the ranges.
+    """Count the ingredient IDs covered by the ranges.
 
-    The list of available IDs is irrelevant for this part; only the ranges
-    matter. Returns the size of the union of the inclusive ranges.
+    The available IDs do not affect this result.
     """
 
     merged = _merge_ranges(ranges)
@@ -97,7 +96,7 @@ def part2(ranges: list[IdRange], available_ids: list[int] | None = None) -> int:
 
 
 def run(variant: str | None = None) -> None:
-    """Run day05 solution and print results."""
+    """Read the input and print both answers."""
 
     lines = read_input_lines(YEAR, DAY, variant)
     ranges, ids = parse_input(lines)

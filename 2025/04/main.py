@@ -7,14 +7,14 @@ from utils.io import read_input_lines
 YEAR = 2025
 DAY = 4
 
-# A roll of paper is represented by "@"; empty space by ".".
-# A roll is accessible if fewer than four of its eight neighbours are also rolls.
+# A roll of paper is "@" and empty space is ".".
+# A roll is accessible if fewer than four of its eight neighbours are rolls.
 
 
 def parse_input(lines: list[str]) -> list[str]:
     """Return the trimmed, non-empty grid rows.
 
-    Preserves row order and assumes all meaningful characters are `@` or `.`.
+    Preserves row order and expects rows to contain only `@` and `.`.
     Empty or whitespace-only lines are ignored.
     """
 
@@ -69,11 +69,10 @@ def part1(grid: list[str]) -> int:
 
 
 def part2(grid: list[str]) -> int:
-    """Return total rolls removable via repeated accessibility.
+    """Return the number of rolls removed by repeatedly removing accessible rolls.
 
-    Iteratively remove any roll with < 4 neighbouring rolls; each removal can
-    unlock more accessible rolls. Uses a neighbour-count queue to avoid
-    rescanning the whole grid each round.
+    Remove any roll with fewer than four neighbouring rolls. Each removal can make
+    more rolls accessible. A neighbour-count queue avoids rescanning the grid.
     """
 
     if not grid:
@@ -106,9 +105,9 @@ def part2(grid: list[str]) -> int:
     while queue:
         r, c = queue.popleft()
         if chars[r][c] != "@":
-            continue  # already removed earlier
+            continue  # The roll was removed earlier.
         if counts[r][c] >= 4:
-            continue  # no longer accessible after prior updates
+            continue  # The roll is no longer accessible.
 
         chars[r][c] = "."
         removed += 1
@@ -127,7 +126,7 @@ def part2(grid: list[str]) -> int:
 
 
 def run(variant: str | None = None) -> None:
-    """Run day04 solution and print results."""
+    """Read the input and print both answers."""
 
     lines = read_input_lines(YEAR, DAY, variant)
     grid = parse_input(lines)

@@ -60,7 +60,7 @@ def test_column_parsing_reads_right_to_left() -> None:
     ]
 
     problems = day06.parse_input_columns(lines)
-    # Columns per problem: rightmost problem first (columns read right-to-left)
+    # Read columns from right to left, starting with the rightmost problem.
     assert [p.numbers for p in problems] == [[86, 75], [24, 13]]
     assert [p.op for p in problems] == ["+", "*"]
     assert day06.part2(lines) == (86 + 75) + (24 * 13)

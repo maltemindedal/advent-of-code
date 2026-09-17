@@ -13,10 +13,10 @@ def parse_input(lines: list[str]) -> list[str]:
 
 
 def _max_joltage_k_digits(bank: str, k: int) -> int:
-    """Return the largest possible joltage using exactly ``k`` digits in order.
+    """Return the largest joltage that uses exactly ``k`` digits in order.
 
-    This is the classic "maximum subsequence of length k" problem solved greedily with
-    a monotonic stack in O(n) time. Digits are kept in order (cannot be rearranged).
+    The algorithm uses a monotonic stack and runs in O(n) time. Digits stay in order
+    and cannot be rearranged.
     """
 
     digits = [int(ch) for ch in bank.strip()]
@@ -60,7 +60,7 @@ def part2(banks: list[str]) -> int:
 
 
 def run(variant: str | None = None) -> None:
-    """Run day03 solution and print results."""
+    """Read the input and print both answers."""
 
     lines = read_input_lines(YEAR, DAY, variant)
     banks = parse_input(lines)

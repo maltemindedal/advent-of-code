@@ -35,7 +35,7 @@ def test_sample_third_region_is_impossible_exact() -> None:
     lines = read_input_lines(2025, 12, variant="sample")
     parsed = day12.parse_input(lines)
 
-    # The sample input has 3 regions; the 3rd is explicitly stated as impossible.
+    # The sample input has three regions, and the third is impossible.
     assert len(parsed.regions) == 3
     assert day12.can_fit_region(parsed.shapes, parsed.regions[0]) is True
     assert day12.can_fit_region(parsed.shapes, parsed.regions[1]) is True

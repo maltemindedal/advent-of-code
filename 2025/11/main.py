@@ -150,7 +150,7 @@ def _count_paths_with_required_dag(
 
 
 def part1(graph: Graph, start: str = START_PART1, end: str = END) -> int:
-    """Count distinct paths from ``start`` to ``end`` in a DAG using DFS+memo."""
+    """Count distinct paths from ``start`` to ``end`` in a DAG using DFS with memoization."""
 
     reachable = _collect_reachable(graph, start)
     if end not in reachable:
@@ -165,10 +165,10 @@ def part2(
     end: str = END,
     required: tuple[str, ...] = REQUIRED_PART2,
 ) -> int:
-    """Count paths that must visit all required nodes in a DAG.
+    """Count paths that visit every required node in a DAG.
 
     Tracks reachable states with a bitmask DP over a topological ordering,
-    which avoids the much higher overhead of a general-purpose solver.
+    avoiding the need for a general-purpose solver.
     """
 
     reachable = _collect_reachable(graph, start)

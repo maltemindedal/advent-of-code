@@ -15,49 +15,49 @@ SAT = z3.sat
 
 
 def make_solver() -> z3.Solver:
-    """Create a typed z3 solver instance."""
+    """Create a z3 solver."""
 
     return z3.Solver()
 
 
 def make_optimizer() -> z3.Optimize:
-    """Create a typed z3 optimizer instance."""
+    """Create a z3 optimizer."""
 
     return z3.Optimize()
 
 
 def int_var(name: str) -> z3.ArithRef:
-    """Create a typed integer variable."""
+    """Create an integer variable."""
 
     return cast(z3.ArithRef, z3.Int(name))
 
 
 def add_constraints(solver: SolverLike, *constraints: object) -> None:
-    """Add one or more constraints to a solver-like object."""
+    """Add constraints to a solver."""
 
     cast(Any, solver).add(*constraints)
 
 
 def sum_expr(terms: Sequence[z3.ArithRef]) -> z3.ArithRef | int:
-    """Build a typed sum expression from z3 arithmetic terms."""
+    """Build a sum expression from z3 arithmetic terms."""
 
     return cast(z3.ArithRef | int, z3.Sum(terms))
 
 
 def minimize_expr(solver: z3.Optimize, expr: z3.ArithRef | int) -> None:
-    """Register an objective on a z3 optimizer."""
+    """Add a minimization objective to a z3 optimizer."""
 
     cast(Any, solver).minimize(expr)
 
 
 def check_solver(solver: SolverLike) -> z3.CheckSatResult:
-    """Run satisfiability checking with a typed result."""
+    """Check whether the solver's constraints are satisfiable."""
 
     return cast("z3.CheckSatResult", cast(Any, solver).check())
 
 
 def eval_int(model: z3.ModelRef, expr: z3.ExprRef) -> int:
-    """Evaluate an integer-valued expression in a z3 model."""
+    """Evaluate an integer expression in a z3 model."""
 
     value = cast("z3.IntNumRef", cast(Any, model).eval(expr, model_completion=True))
     return int(value.as_long())

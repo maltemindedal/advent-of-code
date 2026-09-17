@@ -71,7 +71,7 @@ def _parse_targets(line: str) -> list[int]:
 
 
 def parse_input(lines: Iterable[str]) -> list[Machine]:
-    """Parse machines from the raw input lines.
+    """Parse machine definitions from the input lines.
 
     Each line contains an indicator diagram in ``[]``, one or more button
     definitions in ``()``, and joltage targets in ``{}``.
@@ -109,8 +109,8 @@ def parse_input(lines: Iterable[str]) -> list[Machine]:
 def _min_presses(target_mask: int, buttons: list[int]) -> int:
     """Return the minimum number of button presses to reach ``target_mask``.
 
-    Uses a subset-DP over the button list. Each button is either pressed or not
-    pressed because pressing the same button twice cancels out over GF(2).
+    A subset dynamic program checks every set of buttons. Each button needs at most
+    one press because pressing it twice cancels out over GF(2).
     """
 
     n = len(buttons)
@@ -134,7 +134,7 @@ def _min_presses(target_mask: int, buttons: list[int]) -> int:
                 best = presses
 
     if best is None:
-        raise ValueError("Target configuration is unreachable with given buttons")
+        raise ValueError("Target configuration is unreachable with the available buttons")
     return best
 
 

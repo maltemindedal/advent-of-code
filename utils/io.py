@@ -22,16 +22,16 @@ def _year_str(year: int | str) -> str:
 
 
 def get_input_path(year: int | str, day: int | str, variant: str | None = None) -> Path:
-    """Return the expected input path for a given year/day.
+    """Return the input path for a year and day.
 
     Parameters
     ----------
     year: int | str
-        Advent of Code year (e.g., 2025).
+        Advent of Code year, such as 2025.
     day: int | str
-        Day number, e.g. 1 or "01".
+        Day number, such as 1 or "01".
     variant: str | None
-        Optional suffix (e.g. "sample").
+        Optional filename suffix, such as "sample".
     """
 
     year_part = _year_str(year)
@@ -56,7 +56,7 @@ def read_input(year: int | str, day: int | str, variant: str | None = None) -> s
 
 
 def read_input_lines(year: int | str, day: int | str, variant: str | None = None) -> list[str]:
-    """Read the input file and return a list of stripped lines."""
+    """Read the input file and return its lines."""
 
     content = read_input(year, day, variant)
     return [line.rstrip("\n") for line in content.splitlines()]
