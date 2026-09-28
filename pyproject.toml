@@ -27,13 +27,8 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
-src = ["2025", "utils", "tests"]
 [tool.ruff.lint]
 select = ["ANN", "B", "E", "F", "I", "UP", "W"]
-ignore = ["ANN401"]
-
-[tool.ruff.lint.per-file-ignores]
-"utils/__init__.py" = ["F401"]
 
 [tool.ruff.format]
 quote-style = "double"

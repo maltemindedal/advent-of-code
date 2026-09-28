@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Protocol, cast
 
 import pytest
+
 from tests._helpers import PROJECT_ROOT, load_module
 from utils.io import read_input_lines
 
