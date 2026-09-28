@@ -18,7 +18,7 @@ packages = ["utils"]
 package = true
 
 [dependency-groups]
-dev = ["pytest>=9.0.3", "ruff>=0.6.0", "ty"]
+dev = ["pytest>=9.0.3", "ruff>=0.16.8", "ty"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
