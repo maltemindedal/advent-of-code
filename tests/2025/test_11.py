@@ -72,7 +72,7 @@ def test_cycle_detection() -> None:
             "out:",
         ]
     )
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Cycle detected"):
         day11.part1(graph)
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Cycle detected"):
         day11.part2(graph, start="you")

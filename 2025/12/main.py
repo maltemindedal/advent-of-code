@@ -173,7 +173,7 @@ def _orientations_from_grid(grid: list[str]) -> list[ShapeOrientation]:
 def _placements_for_shape(
     orientations: list[ShapeOrientation], width: int, height: int
 ) -> list[int]:
-    """Return all unique placement bitmasks for a shape in a W×H region."""
+    """Return all unique placement bitmasks for a shape in a WxH region."""
 
     masks: set[int] = set()
     for ori in orientations:
@@ -241,7 +241,7 @@ def _can_fit_exact(
                 if best_len == 1:
                     break
 
-        assert best_i >= 0 and best_valid is not None
+        assert best_valid is not None  # noqa: S101 - type narrowing; set together with best_i
 
         new_remaining = list(remaining)
         new_remaining[best_i] -= 1

@@ -64,8 +64,8 @@ def _build_allowed_prefix(points: list[Point]) -> tuple[list[float], list[float]
     xs = _make_bounds({p[0] for p in points})
     ys = _make_bounds({p[1] for p in points})
 
-    widths = [int(round(xs[i + 1] - xs[i])) for i in range(len(xs) - 1)]
-    heights = [int(round(ys[j + 1] - ys[j])) for j in range(len(ys) - 1)]
+    widths = [round(xs[i + 1] - xs[i]) for i in range(len(xs) - 1)]
+    heights = [round(ys[j + 1] - ys[j]) for j in range(len(ys) - 1)]
 
     prefix = [[0] * (len(ys)) for _ in range(len(xs))]
 
