@@ -39,7 +39,7 @@ select = [
 ignore = ["PLW2901"]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["S101"]  # plain asserts are how pytest tests are written
+"tests/**" = ["S101", "S311"]  # plain asserts and seeded, non-cryptographic randomness
 
 [tool.ruff.format]
 quote-style = "double"
