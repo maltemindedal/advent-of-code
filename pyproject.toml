@@ -31,7 +31,7 @@ testpaths = ["tests"]
 line-length = 100
 target-version = "py311"
 [tool.ruff.lint]
-select = ["ANN", "B", "E", "F", "I", "UP", "W"]
+select = ["ANN", "B", "BLE", "C4", "E", "F", "I", "ISC", "PGH", "PIE", "PLE", "PTH", "T10", "UP", "W"]
 
 [tool.ruff.format]
 quote-style = "double"
