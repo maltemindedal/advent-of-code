@@ -170,6 +170,13 @@ def _orientations_from_grid(grid: list[str]) -> list[ShapeOrientation]:
     return out
 
 
+@cache
+def _cached_orientations(grid: tuple[str, ...]) -> tuple[ShapeOrientation, ...]:
+    """Memoize ``_orientations_from_grid``: it depends only on the shape, not on the region."""
+
+    return tuple(_orientations_from_grid(list(grid)))
+
+
 def _placements_for_shape(
     orientations: list[ShapeOrientation], width: int, height: int
 ) -> list[int]:
@@ -274,7 +281,7 @@ def can_fit_region(shapes: dict[int, list[str]], region: tuple[int, int, list[in
         grid = shapes.get(sid)
         if grid is None:
             raise ValueError(f"Missing shape {sid}")
-        oris = _orientations_from_grid(grid)
+        oris = list(_cached_orientations(tuple(grid)))
         shape_oris.append(oris)
         areas.append(len(oris[0].cells))
         if counts[sid] > 0 and all(ori.width > w or ori.height > h for ori in oris):
