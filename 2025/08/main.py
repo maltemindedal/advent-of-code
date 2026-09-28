@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import heapq
 from collections.abc import Callable
 from dataclasses import dataclass
 
@@ -74,13 +75,17 @@ def manhattan(a: Point3D, b: Point3D) -> int:
     return abs(a[0] - b[0]) + abs(a[1] - b[1]) + abs(a[2] - b[2])
 
 
-def _sorted_edges(points: list[Point3D], distance: DistanceFn) -> list[tuple[int, int, int]]:
-    edges: list[tuple[int, int, int]] = []  # (distance, i, j)
+def _edges(points: list[Point3D], distance: DistanceFn) -> list[tuple[int, int, int]]:
+    """Return every pair as ``(distance, i, j)``, in no particular order.
+
+    Ties on distance break by ``(i, j)``, so ``heapq`` yields the same order as a full sort.
+    """
+
+    edges: list[tuple[int, int, int]] = []
     for i in range(len(points)):
         pi = points[i]
         for j in range(i + 1, len(points)):
             edges.append((distance(pi, points[j]), i, j))
-    edges.sort()
     return edges
 
 
@@ -97,11 +102,8 @@ def connect_closest(
     if pairs_to_connect < 0:
         raise ValueError("pairs_to_connect cannot be negative")
 
-    edges = _sorted_edges(points, distance)
-
-    limit = min(pairs_to_connect, len(edges))
     dsu = DisjointSet(n)
-    for _, i, j in edges[:limit]:
+    for _, i, j in heapq.nsmallest(pairs_to_connect, _edges(points, distance)):
         dsu.union(i, j)
 
     return CircuitResult(dsu.component_sizes())
@@ -118,11 +120,13 @@ def last_connection_product(points: list[Point3D], distance: DistanceFn) -> int:
     if n < 2:
         return 0
 
-    edges = _sorted_edges(points, distance)
+    edges = _edges(points, distance)
+    heapq.heapify(edges)  # the loop below stops early, so ordering everything would be wasted work
     dsu = DisjointSet(n)
     components = n
 
-    for _, i, j in edges:
+    while edges:
+        _, i, j = heapq.heappop(edges)
         ri, rj = dsu.find(i), dsu.find(j)
         if ri == rj:
             continue
