@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Protocol, cast
 
 import pytest
+
 from tests._helpers import PROJECT_ROOT, load_module
 from utils.io import read_input_lines
 
@@ -71,7 +72,7 @@ def test_cycle_detection() -> None:
             "out:",
         ]
     )
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Cycle detected"):
         day11.part1(graph)
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Cycle detected"):
         day11.part2(graph, start="you")

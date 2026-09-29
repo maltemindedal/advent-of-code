@@ -145,7 +145,7 @@ def _compress_vectors(vectors: list[list[int]]) -> list[tuple[int, ...]]:
     for vec in vectors:
         t = tuple(vec)
         unique[t] = None
-    return sorted(unique.keys(), key=lambda v: sum(v), reverse=True)
+    return sorted(unique.keys(), key=sum, reverse=True)
 
 
 def _min_presses_counters(targets: list[int], buttons: list[list[int]]) -> int:

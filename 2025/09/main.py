@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from bisect import bisect_right
+from bisect import bisect_left, bisect_right
+from itertools import accumulate
 
 from utils.io import read_input_lines
 
@@ -10,41 +11,29 @@ DAY = 9
 Point = tuple[int, int]
 
 
-def _point_on_segment(px: float, py: float, x1: float, y1: float, x2: float, y2: float) -> bool:
-    if x1 == x2 and y1 == y2:
-        return px == x1 and py == y1
-    if x1 == x2:  # vertical
-        if px != x1:
-            return False
-        return min(y1, y2) <= py <= max(y1, y2)
-    if y1 == y2:  # horizontal
-        if py != y1:
-            return False
-        return min(x1, x2) <= px <= max(x1, x2)
-    return False
+def _row_spans(poly: list[Point], y: float) -> list[tuple[float, float]]:
+    """Return the closed x-intervals where the line at ``y`` is inside or on the polygon.
 
+    A point (x, y) is inside or on the boundary exactly when x lies in one of these intervals.
+    Vertical, horizontal and zero-length edges lying on the line contribute their own span (edges
+    with any other slope are never "on" the boundary). Every other edge that crosses the line, by
+    the half-open rule ``(y1 > y) != (y2 > y)``, contributes a crossing; a closed polygon has an
+    even number of them, and consecutive pairs of the sorted crossings bound the interior.
+    """
 
-def _point_in_polygon(point: tuple[float, float], poly: list[Point]) -> bool:
-    """Return True if point is inside or on the boundary of the polygon."""
-
-    x, y = point
-    inside = False
-    n = len(poly)
-    for i in range(n):
-        x1, y1 = poly[i]
-        x2, y2 = poly[(i + 1) % n]
-
-        if _point_on_segment(x, y, x1, y1, x2, y2):
-            return True  # boundary is inside
-
+    spans: list[tuple[float, float]] = []
+    crossings: list[float] = []
+    for (x1, y1), (x2, y2) in zip(poly, poly[1:] + poly[:1], strict=True):
+        if x1 == x2:
+            if min(y1, y2) <= y <= max(y1, y2):
+                spans.append((x1, x1))
+        elif y1 == y2 and y == y1:
+            spans.append((min(x1, x2), max(x1, x2)))
         if (y1 > y) != (y2 > y):
-            t = (y - y1) / (y2 - y1)
-            cross_x = x1 + t * (x2 - x1)
-            if cross_x == x:
-                return True
-            if cross_x > x:
-                inside = not inside
-    return inside
+            crossings.append(x1 + (y - y1) / (y2 - y1) * (x2 - x1))
+    crossings.sort()
+    spans.extend(zip(crossings[0::2], crossings[1::2], strict=True))
+    return spans
 
 
 def _make_bounds(coords: set[int]) -> list[float]:
@@ -64,24 +53,30 @@ def _build_allowed_prefix(points: list[Point]) -> tuple[list[float], list[float]
     xs = _make_bounds({p[0] for p in points})
     ys = _make_bounds({p[1] for p in points})
 
-    widths = [int(round(xs[i + 1] - xs[i])) for i in range(len(xs) - 1)]
-    heights = [int(round(ys[j + 1] - ys[j])) for j in range(len(ys) - 1)]
+    widths = [round(xs[i + 1] - xs[i]) for i in range(len(xs) - 1)]
+    heights = [round(ys[j + 1] - ys[j]) for j in range(len(ys) - 1)]
+    sample_xs = [(xs[i] + xs[i + 1]) / 2.0 for i in range(len(widths))]
 
-    prefix = [[0] * (len(ys)) for _ in range(len(xs))]
+    # A cell is allowed when its centre is inside or on the polygon. Sweep one row of cells at a
+    # time: find the allowed columns from the row's x-intervals, then add the row's tiles to the
+    # running 2D prefix sums. rows[j][i] covers the cells left of column i and above row j.
+    rows = [[0] * len(xs)]
+    for j, height in enumerate(heights):
+        sample_y = (ys[j] + ys[j + 1]) / 2.0
+        allowed = [0] * len(widths)
+        for start, end in _row_spans(points, sample_y):
+            lo = bisect_left(sample_xs, start)
+            hi = bisect_right(sample_xs, end)
+            allowed[lo:hi] = widths[lo:hi]
+        row = [0]
+        row.extend(
+            above + height * tiles
+            for above, tiles in zip(rows[-1][1:], accumulate(allowed), strict=True)
+        )
+        rows.append(row)
 
-    for i in range(len(xs) - 1):
-        sample_x = (xs[i] + xs[i + 1]) / 2.0
-        for j in range(len(ys) - 1):
-            sample_y = (ys[j] + ys[j + 1]) / 2.0
-            if _point_in_polygon((sample_x, sample_y), points):
-                tiles = widths[i] * heights[j]
-            else:
-                tiles = 0
-
-            prefix[i + 1][j + 1] = tiles + prefix[i][j + 1] + prefix[i + 1][j] - prefix[i][j]
-        # carry top row accumulation for next i
-        prefix[i + 1][0] = 0
-
+    # Transpose so that prefix[i][j] is indexed by column, then row, like _rect_sum expects.
+    prefix: list[list[int]] = [list(column) for column in zip(*rows, strict=True)]
     return xs, ys, prefix
 
 
@@ -142,6 +137,8 @@ def _largest_rectangle_green(points: list[Point]) -> int:
         return 0
 
     xs, ys, prefix = _build_allowed_prefix(points)
+    tile_x = [_tile_index(x, xs) for x, _ in points]
+    tile_y = [_tile_index(y, ys) for _, y in points]
 
     max_area = 0
     n = len(points)
@@ -152,18 +149,14 @@ def _largest_rectangle_green(points: list[Point]) -> int:
             if x1 == x2 or y1 == y2:
                 continue
 
-            xmin, xmax = sorted((x1, x2))
-            ymin, ymax = sorted((y1, y2))
+            area = (abs(x1 - x2) + 1) * (abs(y1 - y2) + 1)
+            if area <= max_area:
+                continue  # cannot beat the best rectangle found so far
 
-            xi1 = _tile_index(xmin, xs)
-            xi2 = _tile_index(xmax, xs)
-            yi1 = _tile_index(ymin, ys)
-            yi2 = _tile_index(ymax, ys)
-
-            area = (xmax - xmin + 1) * (ymax - ymin + 1)
-            allowed = _rect_sum(prefix, xi1, xi2, yi1, yi2)
-            if allowed == area:
-                max_area = max(max_area, area)
+            xi1, xi2 = sorted((tile_x[i], tile_x[j]))
+            yi1, yi2 = sorted((tile_y[i], tile_y[j]))
+            if _rect_sum(prefix, xi1, xi2, yi1, yi2) == area:
+                max_area = area
 
     return max_area
 

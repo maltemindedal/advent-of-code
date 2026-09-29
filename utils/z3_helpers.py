@@ -4,7 +4,7 @@ from collections.abc import Sequence
 from typing import Any, cast
 
 try:
-    import z3  # type: ignore[import-not-found]
+    import z3
 except ImportError as exc:  # pragma: no cover - dependency should be installed
     raise ImportError("z3-solver is required. Install with `uv add z3-solver`.") from exc
 

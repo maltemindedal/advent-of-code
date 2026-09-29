@@ -12,7 +12,7 @@ Monorepo for Advent of Code solutions using Python and [uv](https://docs.astral.
 
 ## Requirements
 
-- Python 3.11 or later. Python 3.12 is supported.
+- Python 3.11 or later. CI runs the tests on 3.11, 3.12, 3.13 and 3.14.
 - Install uv with `pipx install uv` or follow the documentation linked above.
 
 ## Getting started
@@ -34,7 +34,7 @@ uv run python 2025/01/main.py  # run a day from the repo root
 
 ## Quality checks
 
-This repo uses `uv`, `ruff` for formatting and linting, and `ty` for type checking with all rules enabled. Run these checks locally:
+This repo uses `uv`, `ruff` for formatting and linting, and `ty` for type checking with all rules enabled. CI runs the same checks (with `ruff format --check`) on pushes to `main` and on every pull request. Run them locally:
 
 ```bash
 uv sync

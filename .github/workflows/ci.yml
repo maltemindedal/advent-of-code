@@ -6,27 +6,55 @@ on:
             - main
     pull_request:
 
+permissions:
+    contents: read
+
+concurrency:
+    group: ci-${{ github.head_ref || github.run_id }}
+    cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
     test:
-        name: Run tests
-        runs-on: ubuntu-latest
+        name: Python ${{ matrix.python-version }}
+        runs-on: ubuntu-24.04
+        timeout-minutes: 15
+
+        strategy:
+            fail-fast: false
+            matrix:
+                python-version: ["3.11", "3.12", "3.13", "3.14"]
+
+        env:
+            UV_PYTHON: ${{ matrix.python-version }}
 
         steps:
             - name: Check out repository
-              uses: actions/checkout@v4
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
 
             - name: Set up Python
-              uses: actions/setup-python@v5
+              uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
               with:
-                  python-version: "3.11"
+                  python-version: ${{ matrix.python-version }}
 
             - name: Set up uv
-              uses: astral-sh/setup-uv@v6
+              uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
               with:
                   enable-cache: true
+                  prune-cache: true
 
             - name: Install dependencies
-              run: uv sync --frozen --all-groups
+              run: uv sync --locked --all-groups
 
             - name: Run tests
-              run: uv run pytest
+              run: uv run --no-sync pytest
+
+            - name: Lint
+              run: uv run --no-sync ruff check .
+
+            - name: Check formatting
+              run: uv run --no-sync ruff format --check .
+
+            - name: Type-check
+              run: uv run --no-sync ty check

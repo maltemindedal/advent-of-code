@@ -18,26 +18,36 @@ packages = ["utils"]
 package = true
 
 [dependency-groups]
-dev = ["pytest>=9.0.3", "ruff>=0.6.0", "ty"]
+dev = ["pytest>=9.0.3", "ruff>=0.16.8", "ty>=0.0.83"]
 
-[tool.pytest.ini_options]
+[tool.pytest]
+strict = true
+filterwarnings = ["error"]
+addopts = ["--import-mode=importlib"]
 pythonpath = ["."]
 testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 100
 target-version = "py311"
-src = ["2025", "utils", "tests"]
 [tool.ruff.lint]
-select = ["ANN", "B", "E", "F", "I", "UP", "W"]
-ignore = ["ANN401"]
+select = [
+    "ANN", "B", "BLE", "C4", "E", "F", "I", "ISC", "PGH", "PIE",
+    "PLE", "PLW", "PT", "PTH", "RUF", "S", "T10", "UP", "W",
+]
+# PLW2901: `line = line.strip()` inside a loop is this repo's parsing idiom.
+ignore = ["PLW2901"]
 
 [tool.ruff.lint.per-file-ignores]
-"utils/__init__.py" = ["F401"]
+"tests/**" = ["S101", "S311"]  # plain asserts and seeded, non-cryptographic randomness
 
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
+
+[tool.ty.analysis]
+# Only `# ty: ignore[rule]` suppresses; a bare `# type: ignore` would hide every diagnostic.
+respect-type-ignore-comments = false
 
 [tool.ty.rules]
 all = "error"

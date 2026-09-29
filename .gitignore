@@ -21,9 +21,15 @@ htmlcov/
 .vscode/
 .idea/
 
-# Inputs (keep sample files checked in)
-inputs/**/*.txt
+# Inputs (keep sample files checked in; real puzzle inputs must not be published)
+inputs/**
+!inputs/**/
 !inputs/**/*.sample.txt
+
+# Local secrets, e.g. an Advent of Code session cookie
+.env
+.env.*
+!.env.example
 
 # Linters and formatters
 .ruff_cache/
