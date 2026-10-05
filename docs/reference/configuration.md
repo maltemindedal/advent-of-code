@@ -12,6 +12,8 @@ The solutions read no environment variables and no configuration files at runtim
 | --- | --- | --- |
 | `name` | `"advent-of-code"` | Distribution name of the editable install. |
 | `version` | `"1.0.0"` | Package version in the install metadata. No code reads it. |
+| `license` | `"MIT"` | SPDX license expression, written to the install metadata as `License-Expression`. |
+| `license-files` | `["LICENSE"]` | Bundles `LICENSE` into the built wheel. |
 | `requires-python` | `">=3.11"` | Lowest supported Python. ty assumes this floor when type-checking. |
 | `dependencies` | `["z3-solver>=4.12.4"]` | The only runtime dependency, used by `utils.z3_helpers` (2025 day 10). |
 

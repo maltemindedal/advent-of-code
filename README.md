@@ -65,6 +65,7 @@ docs/            documentation
 .github/         CI workflow and Dependabot configuration
 .agents/         a vendored skill for AI coding agents
 AGENTS.md        guidelines for AI coding agents
+LICENSE          MIT License for the code
 pyproject.toml   project metadata and tool configuration
 uv.lock          locked dependency versions
 ```
@@ -75,4 +76,4 @@ See [Contributing](docs/contributing.md) for the checks CI runs and the conventi
 
 ## License
 
-The repository does not include a license file.
+The code is released under the [MIT License](LICENSE). The sample inputs under `inputs/` are examples copied from Advent of Code puzzle descriptions; they are © Advent of Code and are not covered by the license.

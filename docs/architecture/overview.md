@@ -60,6 +60,8 @@ The rationale for each decision is recorded in the commit that made it; the hash
 
 Puzzle inputs are not meant to be republished, so `.gitignore` ignores everything under `inputs/` except `*.sample.txt`, whatever the file extension (`8a01355`). `.env` files are ignored too, because that is where an Advent of Code session cookie usually goes. The cost is that a fresh clone can run each day only on its sample until you add your own input.
 
+The sample files are a deliberate exception to not republishing puzzle content. They are copied from the puzzle descriptions, which Advent of Code also asks repositories not to include, but every sample test and `tests/test_cli.py` depend on them. They stay committed, and the [MIT License](../../LICENSE) explicitly does not cover them (see the [README](../../README.md#license)).
+
 ### Static checks at full strictness
 
 ty runs with every rule as an error (`3c64d3b`), and only `# ty: ignore[<rule>]` suppresses a diagnostic (`09d5b0c`). A bare `# type: ignore` would silently hide every diagnostic on its line, and ty would never report it as unused. ruff enables a broad rule set, including some families that had no findings when they were added; they guard against regressions (`6b7b5fd`).

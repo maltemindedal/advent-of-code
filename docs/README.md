@@ -44,4 +44,5 @@ Background and reasoning, for readers who want to understand the design.
 | File | Covers |
 | --- | --- |
 | [`README.md`](../README.md) | Project summary, quick start and links into these pages. |
+| [`LICENSE`](../LICENSE) | MIT License for the code; the README's License section says what it does not cover. |
 | [`AGENTS.md`](../AGENTS.md) | Behavioural guidelines for AI coding agents working in the repository. |
