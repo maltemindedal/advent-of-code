@@ -44,6 +44,7 @@ Background and reasoning, for readers who want to understand the design.
 | --- | --- |
 | [`README.md`](../README.md) | Project summary, quick start and links into these pages. |
 | [`CONTRIBUTING.md`](../CONTRIBUTING.md) | Reproduce CI locally; conventions for inputs, dependencies, commits, pull requests and docs. |
+| [`CODE_OF_CONDUCT.md`](../CODE_OF_CONDUCT.md) | Contributor Covenant 3.0 and how to report a violation. |
 | [`SECURITY.md`](../SECURITY.md) | Supported versions and how to report a vulnerability privately. |
 | [`LICENSE`](../LICENSE) | MIT License for the code; the README's License section says what it does not cover. |
 | [`AGENTS.md`](../AGENTS.md) | Behavioural guidelines for AI coding agents working in the repository. |
