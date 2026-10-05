@@ -1,10 +1,10 @@
 # Contributing
 
-How to set up a development environment, the checks a change must pass, and the conventions the history follows. AI coding agents should also follow [`AGENTS.md`](../AGENTS.md).
+How to set up a development environment, the checks a change must pass, and the conventions the history follows. AI coding agents should also follow [`AGENTS.md`](AGENTS.md).
 
 ## Set up
 
-Follow [Getting started](getting-started.md) through step 4. To add a solution, follow [Adding a day](guides/adding-a-day.md).
+Follow [Getting started](docs/getting-started.md) through step 4. To add a solution, follow [Adding a day](docs/guides/adding-a-day.md).
 
 ## Checks
 
@@ -18,7 +18,7 @@ uv run --no-sync ruff format --check .
 uv run --no-sync ty check
 ```
 
-If the format check fails, `uv run ruff format .` rewrites the files in place. What each command reads and enforces is in the [command reference](reference/cli.md), and why CI uses `--locked` and `--no-sync` is in [Architecture: CI enforces the lock file](architecture/overview.md#ci-enforces-the-lock-file).
+If the format check fails, `uv run ruff format .` rewrites the files in place. What each command reads and enforces is in the [command reference](docs/reference/cli.md), and why CI uses `--locked` and `--no-sync` is in [Architecture: CI enforces the lock file](docs/architecture/overview.md#ci-enforces-the-lock-file).
 
 A local run tests one Python version, the one in `.venv/`; CI covers all four.
 
@@ -54,5 +54,5 @@ Work on a branch and open a pull request against `main`. CI must pass before mer
 ## Documentation
 
 - Update the affected page under `docs/` in the same pull request as the change it describes.
-- [`docs/README.md`](README.md) lists every documentation file. Add a line there when you add a page.
+- [`docs/README.md`](docs/README.md) lists every documentation file. Add a line there when you add a page.
 - `ruff format --check` also checks fenced `python` blocks in Markdown files, so format code examples the same way as code.

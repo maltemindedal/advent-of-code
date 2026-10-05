@@ -122,7 +122,7 @@ The test builds module paths under `2025/` only, so it does not cover days in ot
 
 ## 5. Implement and check
 
-Implement `parse_input`, `part1` and `part2` until the tests pass, run the day on your input, and then run the full set of checks in [Contributing: checks](../contributing.md#checks):
+Implement `parse_input`, `part1` and `part2` until the tests pass, run the day on your input, and then run the full set of checks in [Contributing: checks](../../CONTRIBUTING.md#checks):
 
 ```bash
 uv run python 2026/01/main.py
