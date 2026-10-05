@@ -65,14 +65,16 @@ docs/            documentation
 .github/         CI workflow and Dependabot configuration
 .agents/         a vendored skill for AI coding agents
 AGENTS.md        guidelines for AI coding agents
+CONTRIBUTING.md  checks and conventions for contributors
 LICENSE          MIT License for the code
+SECURITY.md      security policy and how to report a vulnerability
 pyproject.toml   project metadata and tool configuration
 uv.lock          locked dependency versions
 ```
 
 ## Contributing
 
-See [Contributing](docs/contributing.md) for the checks CI runs and the conventions for commits and pull requests.
+See [Contributing](CONTRIBUTING.md) for the checks CI runs and the conventions for commits and pull requests.
 
 ## License
 

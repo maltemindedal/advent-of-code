@@ -18,7 +18,6 @@ Steps for a specific task, for anyone who has the project running.
 | --- | --- |
 | [Running a day](guides/running-a-day.md) | Run a solution on your real input, the sample or another file; call `part1`/`part2` with non-default arguments; common errors. |
 | [Adding a day](guides/adding-a-day.md) | Create a day module, its inputs and its tests, including the first day of a new year. |
-| [Contributing](contributing.md) | Reproduce CI locally; conventions for inputs, dependencies, commits, pull requests and docs. |
 
 ## Reference
 
@@ -44,5 +43,7 @@ Background and reasoning, for readers who want to understand the design.
 | File | Covers |
 | --- | --- |
 | [`README.md`](../README.md) | Project summary, quick start and links into these pages. |
+| [`CONTRIBUTING.md`](../CONTRIBUTING.md) | Reproduce CI locally; conventions for inputs, dependencies, commits, pull requests and docs. |
+| [`SECURITY.md`](../SECURITY.md) | Supported versions and how to report a vulnerability privately. |
 | [`LICENSE`](../LICENSE) | MIT License for the code; the README's License section says what it does not cover. |
 | [`AGENTS.md`](../AGENTS.md) | Behavioural guidelines for AI coding agents working in the repository. |

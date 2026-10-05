@@ -91,4 +91,4 @@ prints nothing. Puzzle inputs are not meant to be republished; only files ending
 
 - [Running a day](guides/running-a-day.md): other input variants, and calling `part1`/`part2` directly.
 - [Adding a day](guides/adding-a-day.md): write your own solution with tests.
-- [Contributing](contributing.md): the checks CI runs.
+- [Contributing](../CONTRIBUTING.md): the checks CI runs.
