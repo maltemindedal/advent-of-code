@@ -1,0 +1,58 @@
+name: Bug report
+description: Report a wrong answer, a crash or a failing check.
+labels: ["bug"]
+body:
+    - type: markdown
+      attributes:
+          value: Do not paste a real puzzle input. Real inputs must not be published.
+    - type: input
+      id: commit
+      attributes:
+          label: Commit
+          description: Output of `git rev-parse --short HEAD`. Only the latest commit on `main` is supported.
+      validations:
+          required: true
+    - type: input
+      id: file
+      attributes:
+          label: Affected file
+          placeholder: 2025/07/main.py
+    - type: textarea
+      id: steps
+      attributes:
+          label: Steps to reproduce
+          description: >-
+              The exact commands you ran from the repository root, and which input they read:
+              your real input, `sample` or another variant. If it fails only on your real input,
+              a smaller input that shows the problem helps.
+          placeholder: uv run python -c "import runpy; runpy.run_path('2025/07/main.py')['run']('sample')"
+      validations:
+          required: true
+    - type: textarea
+      id: expected
+      attributes:
+          label: Expected behaviour
+          placeholder: |
+              Part 1: 21
+              Part 2: 40
+      validations:
+          required: true
+    - type: textarea
+      id: actual
+      attributes:
+          label: Actual output
+          description: The full output or traceback.
+          render: text
+      validations:
+          required: true
+    - type: textarea
+      id: environment
+      attributes:
+          label: Environment
+          description: Your operating system and the output of `uv --version` and `uv run python --version`.
+          placeholder: |
+              OS:
+              uv:
+              Python:
+      validations:
+          required: true

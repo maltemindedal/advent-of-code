@@ -2,6 +2,8 @@
 
 How to set up a development environment, the checks a change must pass, and the conventions the history follows. AI coding agents should also follow [`AGENTS.md`](AGENTS.md).
 
+Everyone who takes part in this project is expected to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+
 ## Set up
 
 Follow [Getting started](docs/getting-started.md) through step 4. To add a solution, follow [Adding a day](docs/guides/adding-a-day.md).
