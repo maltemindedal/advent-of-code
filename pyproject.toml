@@ -20,7 +20,7 @@ packages = ["utils"]
 package = true
 
 [dependency-groups]
-dev = ["pytest>=9.0.3", "ruff>=0.16.9", "ty>=0.0.84"]
+dev = ["pytest>=9.0.3", "ruff>=0.16.10", "ty>=0.0.84"]
 
 
 [tool.pytest]
