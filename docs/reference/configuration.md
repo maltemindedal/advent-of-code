@@ -106,12 +106,12 @@ The uv version CI uses is not pinned. With no `version` input and no `required-v
 
 ## `.github/dependabot.yml`
 
-| Ecosystem | Schedule | Cooldown |
-| --- | --- | --- |
-| `uv` (updates `uv.lock`) | Weekly | 7 days after a release before it is proposed |
-| `github-actions` (updates the pinned SHAs and their version comments) | Weekly | 7 days |
+| Ecosystem | Schedule |
+| --- | --- |
+| `uv` (updates `uv.lock`) | Weekly |
+| `github-actions` (updates the pinned SHAs and their version comments) | Weekly |
 
-The cooldown applies to version updates only; security updates are not delayed.
+Neither entry sets `cooldown`, so Dependabot applies its own default cooldown to version updates. That default is GitHub's to change; it is currently 3 days after a release before it is proposed (per the [Dependabot options reference](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference), checked 2026-10-06). Security updates are never delayed.
 
 ## `skills-lock.json`
 
