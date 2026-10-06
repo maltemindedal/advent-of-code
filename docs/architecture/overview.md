@@ -76,7 +76,7 @@ pytest runs with `--import-mode=importlib` (`1ec7d27`). Without it, `tests/2025/
 
 ### CI enforces the lock file
 
-CI installs with `uv sync --locked` and runs every tool with `uv run --no-sync` (`8535fdb`). `--frozen` would accept a lock that no longer matches `pyproject.toml`, and a plain `uv run` would silently rewrite it. With `--locked`, a stale `uv.lock` fails the build. The three actions are pinned by commit SHA (`0c5c46b`, `a89cb72`, `f432094`), and Dependabot proposes updates to both the lock and the SHAs, a week after each upstream release (`e9a074a`).
+CI installs with `uv sync --locked` and runs every tool with `uv run --no-sync` (`8535fdb`). `--frozen` would accept a lock that no longer matches `pyproject.toml`, and a plain `uv run` would silently rewrite it. With `--locked`, a stale `uv.lock` fails the build. The three actions are pinned by commit SHA (`0c5c46b`, `a89cb72`, `f432094`), and Dependabot proposes updates to both the lock and the SHAs (`e9a074a`).
 
 ### Day 12 decides large regions by area and bounds only
 

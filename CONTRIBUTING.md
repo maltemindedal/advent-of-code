@@ -31,7 +31,7 @@ Never commit a real puzzle input. `.gitignore` already ignores everything under 
 ## Dependencies
 
 - `uv.lock` pins every package. Commit it together with any change to `pyproject.toml`; after editing `pyproject.toml` by hand, run `uv lock` to update it. CI fails if the two disagree.
-- Dependabot opens a pull request each week for newer releases of the locked packages and of the CI actions, once a release is at least 7 days old. Manual upgrades follow the same 7-day rule.
+- Dependabot opens a pull request each week for newer releases of the locked packages and of the CI actions. The repository sets no cooldown, so Dependabot holds back version updates for its default cooldown; security updates are not delayed.
 
 ## Commit messages
 
