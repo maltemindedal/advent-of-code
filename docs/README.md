@@ -47,4 +47,4 @@ Background and reasoning, for readers who want to understand the design.
 | [`CODE_OF_CONDUCT.md`](../CODE_OF_CONDUCT.md) | Contributor Covenant 3.0 and how to report a violation. |
 | [`SECURITY.md`](../SECURITY.md) | Supported versions and how to report a vulnerability privately. |
 | [`LICENSE`](../LICENSE) | MIT License for the code; the README's License section says what it does not cover. |
-| [`AGENTS.md`](../AGENTS.md) | Behavioural guidelines for AI coding agents working in the repository. |
+| [`AGENTS.md`](../AGENTS.md) | Commands, conventions and gotchas for AI coding agents working in the repository. |
