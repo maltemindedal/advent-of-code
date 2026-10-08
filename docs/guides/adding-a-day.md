@@ -104,19 +104,19 @@ Then replace the `0`s with the example answers from the puzzle description and r
 uv run pytest tests/2026/test_01.py
 ```
 
-## 4. Pin the printed output (2025 days only)
+## 4. Pin the printed output
 
-`tests/test_cli.py` runs `run("sample")` for every day in its `EXPECTED_SAMPLE_OUTPUT` table and compares the printed text. For a 2025 day, add an entry:
+`tests/test_cli.py` runs `run("sample")` for every day in its `EXPECTED_SAMPLE_OUTPUT` table, checks that the module's `YEAR` and `DAY` match its folder, and compares the printed text. Add an entry keyed by year and day:
 
 ```python
 EXPECTED_SAMPLE_OUTPUT = {
     # ...
-    12: "Solution: 2\n",
-    13: "Part 1: <answer>\nPart 2: <answer>\n",
+    (2025, 12): "Solution: 2\n",
+    (2026, 1): "Part 1: <answer>\nPart 2: <answer>\n",
 }
 ```
 
-The test builds module paths under `2025/` only, so it does not cover days in other years.
+The entry is required: `test_every_day_has_pinned_output` finds every `<year>/<DD>/main.py` in the repository and fails until each one has an entry.
 
 ## 5. Implement and check
 

@@ -28,3 +28,12 @@ def load_day(year: int, day: int) -> ModuleType:
 
     path = PROJECT_ROOT / str(year) / f"{day:02d}" / "main.py"
     return load_module(f"aoc{year}_day{day:02d}", path)
+
+
+def find_days() -> list[tuple[int, int]]:
+    """Return ``(year, day)`` for every ``<year>/<DD>/main.py`` in the repository, sorted."""
+
+    return sorted(
+        (int(path.parent.parent.name), int(path.parent.name))
+        for path in PROJECT_ROOT.glob("[0-9][0-9][0-9][0-9]/[0-9][0-9]/main.py")
+    )

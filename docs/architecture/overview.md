@@ -47,7 +47,7 @@ The day folders are not packages, and their names are not valid Python identifie
 The suite has three layers:
 
 1. **Sample tests** in `tests/<year>/test_<DD>.py` check each part against the expected answer for the committed sample input. Many days add edge cases and error paths.
-2. **Output tests** in `tests/test_cli.py` pin the exact text each 2025 `run("sample")` prints. They protect the `Part 1:`/`Part 2:` labels and the `YEAR`/`DAY` wiring, which the sample tests bypass.
+2. **Output tests** in `tests/test_cli.py` pin the exact text `run("sample")` prints for every `<year>/<DD>/main.py` in the repository, and fail when a day has no pinned entry. They protect the `Part 1:`/`Part 2:` labels and the `YEAR`/`DAY` wiring, which the sample tests bypass; `YEAR` and `DAY` are also checked directly against the module's folder.
 3. **Reference tests** for days whose algorithm was rewritten for speed (2025 days 8 and 9). The test file carries a simple reference implementation of the slower approach the solution replaced, and requires the optimised version to match it on generated inputs (`cc760bb`, `9bc0312`).
 
 No test needs a real puzzle input, so the suite runs on a fresh clone and in CI.
