@@ -72,10 +72,8 @@ from __future__ import annotations
 
 from typing import Protocol, cast
 
-from tests._helpers import PROJECT_ROOT, load_module
+from tests._helpers import load_day
 from utils.io import read_input_lines
-
-DAY01_PATH = PROJECT_ROOT / "2026" / "01" / "main.py"
 
 
 class Day01Module(Protocol):
@@ -86,7 +84,7 @@ class Day01Module(Protocol):
     def part2(self, data: list[str]) -> int: ...
 
 
-day01 = cast(Day01Module, load_module("aoc2026_day01", DAY01_PATH))
+day01 = cast(Day01Module, load_day(2026, 1))
 
 
 def test_sample_parts() -> None:
@@ -97,7 +95,7 @@ def test_sample_parts() -> None:
 
 Two details matter:
 
-- `load_module` registers the module in `sys.modules` under the name you pass. Use `aoc<year>_day<DD>` so that two years' modules never replace each other.
+- `load_day(2026, 1)` loads `2026/01/main.py` and registers it in `sys.modules` as `aoc2026_day01`, so two years' modules never replace each other. It loads each day once per test session, so every test file that asks for the same day gets the same module.
 - The `Protocol` gives ty the module's types. Declare every function the tests call.
 
 Then replace the `0`s with the example answers from the puzzle description and run the test. It fails until the solution is right:

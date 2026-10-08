@@ -60,7 +60,7 @@ Dependencies:
 
 ## Docs
 
-- Before adding a day or the first day of a new year, read `docs/guides/adding-a-day.md`: skeletons for `main.py` and its test that already pass ruff and ty, including the `load_module` name and `Protocol` the test needs.
+- Before adding a day or the first day of a new year, read `docs/guides/adding-a-day.md`: skeletons for `main.py` and its test that already pass ruff and ty, including the `load_day` call and `Protocol` the test needs.
 - Before changing a day's signature or printed output, read `docs/reference/day-modules.md`, and update it in the same change.
 - Before changing `utils/`, read `docs/reference/api.md`.
 - Before changing structure, imports, test layout or CI, read `docs/architecture/overview.md`; each design decision names the commit holding its full rationale (`git show <hash>`).

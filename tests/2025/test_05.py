@@ -2,10 +2,8 @@ from __future__ import annotations
 
 from typing import Protocol, cast
 
-from tests._helpers import PROJECT_ROOT, load_module
+from tests._helpers import load_day
 from utils.io import read_input_lines
-
-DAY05_PATH = PROJECT_ROOT / "2025" / "05" / "main.py"
 
 
 class IdRangeFactory(Protocol):
@@ -22,7 +20,7 @@ class Day05Module(Protocol):
     def part2(self, ranges: list[object]) -> int: ...
 
 
-day05 = cast(Day05Module, load_module("aoc2025_day05", DAY05_PATH))
+day05 = cast(Day05Module, load_day(2025, 5))
 
 
 def test_sample_fresh_and_spoiled_counts() -> None:

@@ -5,10 +5,8 @@ from typing import Protocol, cast
 
 import pytest
 
-from tests._helpers import PROJECT_ROOT, load_module
+from tests._helpers import load_day
 from utils.io import read_input_lines
-
-DAY12_PATH = PROJECT_ROOT / "2025" / "12" / "main.py"
 
 
 class ParsedInputLike(Protocol):
@@ -24,7 +22,7 @@ class Day12Module(Protocol):
     def can_fit_region(self, shapes: object, region: object) -> bool: ...
 
 
-day12 = cast(Day12Module, load_module("aoc2025_day12", DAY12_PATH))
+day12 = cast(Day12Module, load_day(2025, 12))
 
 
 def test_sample_part1_count_fit_regions() -> None:

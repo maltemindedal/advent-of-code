@@ -2,9 +2,7 @@ from __future__ import annotations
 
 from typing import Protocol, cast
 
-from tests._helpers import PROJECT_ROOT, load_module
-
-DAY06_PATH = PROJECT_ROOT / "2025" / "06" / "main.py"
+from tests._helpers import load_day
 
 
 class ProblemLike(Protocol):
@@ -22,7 +20,7 @@ class Day06Module(Protocol):
     def part2(self, lines: list[str]) -> int: ...
 
 
-day06 = cast(Day06Module, load_module("aoc2025_day06", DAY06_PATH))
+day06 = cast(Day06Module, load_day(2025, 6))
 
 
 def test_sample_grand_total_matches_description() -> None:

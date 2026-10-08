@@ -4,11 +4,8 @@ from typing import Protocol, cast
 
 import pytest
 
-from tests._helpers import PROJECT_ROOT, load_module
+from tests._helpers import load_day
 from utils.io import read_input_lines
-
-DAY11_PATH = PROJECT_ROOT / "2025" / "11" / "main.py"
-
 
 Graph = dict[str, list[str]]
 
@@ -27,7 +24,7 @@ class Day11Module(Protocol):
     ) -> int: ...
 
 
-day11 = cast(Day11Module, load_module("aoc2025_day11", DAY11_PATH))
+day11 = cast(Day11Module, load_day(2025, 11))
 
 
 def test_sample_paths_part1() -> None:

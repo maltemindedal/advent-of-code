@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+from functools import cache
 from importlib import util
 from pathlib import Path
 from types import ModuleType
@@ -19,3 +20,11 @@ def load_module(module_name: str, module_path: Path) -> ModuleType:
     sys.modules[module_name] = module
     spec.loader.exec_module(module)
     return module
+
+
+@cache
+def load_day(year: int, day: int) -> ModuleType:
+    """Load ``<year>/<DD>/main.py`` once, registered as ``aoc<year>_day<DD>``."""
+
+    path = PROJECT_ROOT / str(year) / f"{day:02d}" / "main.py"
+    return load_module(f"aoc{year}_day{day:02d}", path)

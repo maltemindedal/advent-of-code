@@ -4,7 +4,7 @@ from typing import Protocol, cast
 
 import pytest
 
-from tests._helpers import PROJECT_ROOT, load_module
+from tests._helpers import load_day
 
 # `run("sample")` output per day. Pins the printed labels and the YEAR/DAY wiring that the
 # day-level tests bypass. Day 8 part 1 is 20 (not the puzzle's 40) because `run` uses the
@@ -32,7 +32,6 @@ class RunnableDay(Protocol):
 
 @pytest.mark.parametrize("day", sorted(EXPECTED_SAMPLE_OUTPUT))
 def test_run_prints_sample_answers(day: int, capsys: pytest.CaptureFixture[str]) -> None:
-    path = PROJECT_ROOT / "2025" / f"{day:02d}" / "main.py"
-    module = cast(RunnableDay, load_module(f"aoc2025_day{day:02d}_cli", path))
+    module = cast(RunnableDay, load_day(2025, day))
     module.run("sample")
     assert capsys.readouterr().out == EXPECTED_SAMPLE_OUTPUT[day]

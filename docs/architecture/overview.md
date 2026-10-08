@@ -38,7 +38,7 @@ flowchart LR
 
 Day modules import `utils` even though they sit two directories below it. When Python runs `2025/01/main.py`, it puts `2025/01/` on `sys.path`, not the repository root. The import works because `[tool.uv] package = true` makes `uv sync` install the project in editable mode, and the editable install adds the repository root to `sys.path` for every interpreter in `.venv/`. That is why scripts must run through `uv run` (or the `.venv` interpreter).
 
-The day folders are not packages, and their names are not valid Python identifiers: `import 2025.01.main` is a syntax error. The tests therefore load each `main.py` by file path with `importlib` (`load_module` in `tests/_helpers.py`), under a unique module name such as `aoc2025_day01`. Each test file declares a `Protocol` for the module it loads, which gives ty the types that a path-based import cannot provide.
+The day folders are not packages, and their names are not valid Python identifiers: `import 2025.01.main` is a syntax error. The tests therefore load each `main.py` by file path with `importlib`, through `load_day(year, day)` in `tests/_helpers.py`. It is the only test code that knows the `<year>/<DD>/main.py` layout: it builds the path, registers the module under a unique name such as `aoc2025_day01`, and loads each day once per session. Each test file declares a `Protocol` for the module it loads, which gives ty the types that a path-based import cannot provide.
 
 `utils.io` resolves `inputs/` relative to its own file, so input paths do not depend on the working directory.
 

@@ -7,10 +7,7 @@ from typing import Protocol, cast
 
 import pytest
 
-from tests._helpers import PROJECT_ROOT, load_module
-
-DAY08_PATH = PROJECT_ROOT / "2025" / "08" / "main.py"
-
+from tests._helpers import load_day
 
 Point3D = tuple[int, int, int]
 DistanceFn = Callable[[Point3D, Point3D], int]
@@ -42,7 +39,7 @@ class Day08Module(Protocol):
     def manhattan(self, a: Point3D, b: Point3D) -> int: ...
 
 
-day08 = cast(Day08Module, load_module("aoc2025_day08", DAY08_PATH))
+day08 = cast(Day08Module, load_day(2025, 8))
 
 
 EXAMPLE_INPUT = [
