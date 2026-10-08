@@ -2,9 +2,8 @@ from __future__ import annotations
 
 from typing import Protocol, cast
 
-from tests._helpers import PROJECT_ROOT, load_module
+from tests._helpers import PROJECT_ROOT, load_day
 
-DAY07_PATH = PROJECT_ROOT / "2025" / "07" / "main.py"
 SAMPLE_PATH = PROJECT_ROOT / "inputs" / "2025" / "07.sample.txt"
 
 
@@ -14,7 +13,7 @@ class Day07Module(Protocol):
     def part2(self, lines: list[str]) -> int: ...
 
 
-day07 = cast(Day07Module, load_module("aoc2025_day07", DAY07_PATH))
+day07 = cast(Day07Module, load_day(2025, 7))
 
 
 def test_sample_splits_match_description() -> None:

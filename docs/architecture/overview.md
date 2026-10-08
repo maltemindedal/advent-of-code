@@ -38,7 +38,7 @@ flowchart LR
 
 Day modules import `utils` even though they sit two directories below it. When Python runs `2025/01/main.py`, it puts `2025/01/` on `sys.path`, not the repository root. The import works because `[tool.uv] package = true` makes `uv sync` install the project in editable mode, and the editable install adds the repository root to `sys.path` for every interpreter in `.venv/`. That is why scripts must run through `uv run` (or the `.venv` interpreter).
 
-The day folders are not packages, and their names are not valid Python identifiers: `import 2025.01.main` is a syntax error. The tests therefore load each `main.py` by file path with `importlib` (`load_module` in `tests/_helpers.py`), under a unique module name such as `aoc2025_day01`. Each test file declares a `Protocol` for the module it loads, which gives ty the types that a path-based import cannot provide.
+The day folders are not packages, and their names are not valid Python identifiers: `import 2025.01.main` is a syntax error. The tests therefore load each `main.py` by file path with `importlib`, through `load_day(year, day)` in `tests/_helpers.py`. It is the only test code that knows the `<year>/<DD>/main.py` layout: it builds the path, registers the module under a unique name such as `aoc2025_day01`, and loads each day once per session. Each test file declares a `Protocol` for the module it loads, which gives ty the types that a path-based import cannot provide.
 
 `utils.io` resolves `inputs/` relative to its own file, so input paths do not depend on the working directory.
 
@@ -47,7 +47,7 @@ The day folders are not packages, and their names are not valid Python identifie
 The suite has three layers:
 
 1. **Sample tests** in `tests/<year>/test_<DD>.py` check each part against the expected answer for the committed sample input. Many days add edge cases and error paths.
-2. **Output tests** in `tests/test_cli.py` pin the exact text each 2025 `run("sample")` prints. They protect the `Part 1:`/`Part 2:` labels and the `YEAR`/`DAY` wiring, which the sample tests bypass.
+2. **Output tests** in `tests/test_cli.py` pin the exact text `run("sample")` prints for every `<year>/<DD>/main.py` in the repository, and fail when a day has no pinned entry. They protect the `Part 1:`/`Part 2:` labels and the `YEAR`/`DAY` wiring, which the sample tests bypass; `YEAR` and `DAY` are also checked directly against the module's folder.
 3. **Reference tests** for days whose algorithm was rewritten for speed (2025 days 8 and 9). The test file carries a simple reference implementation of the slower approach the solution replaced, and requires the optimised version to match it on generated inputs (`cc760bb`, `9bc0312`).
 
 No test needs a real puzzle input, so the suite runs on a fresh clone and in CI.

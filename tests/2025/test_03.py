@@ -2,10 +2,8 @@ from __future__ import annotations
 
 from typing import Protocol, cast
 
-from tests._helpers import PROJECT_ROOT, load_module
+from tests._helpers import load_day
 from utils.io import read_input_lines
-
-DAY03_PATH = PROJECT_ROOT / "2025" / "03" / "main.py"
 
 
 class Day03Module(Protocol):
@@ -20,7 +18,7 @@ class Day03Module(Protocol):
     def _max_joltage_k_digits(self, digits: str, k: int) -> int: ...
 
 
-day03 = cast(Day03Module, load_module("aoc2025_day03", DAY03_PATH))
+day03 = cast(Day03Module, load_day(2025, 3))
 
 
 def test_sample_total_joltage() -> None:

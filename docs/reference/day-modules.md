@@ -10,8 +10,8 @@ Every 2025 module defines:
 
 | Name | Signature | Purpose |
 | --- | --- | --- |
-| `YEAR` | `int` | Puzzle year, passed to `read_input_lines`. |
-| `DAY` | `int` | Puzzle day, passed to `read_input_lines`. |
+| `YEAR` | `int` | Puzzle year, passed to `read_input_lines`. Must match the year folder; `tests/test_cli.py` checks it. |
+| `DAY` | `int` | Puzzle day, passed to `read_input_lines`. Must match the day folder; `tests/test_cli.py` checks it. |
 | `parse_input` | `(lines) -> <parsed>` | Turns input lines into the day's data structure. Day 7 has none. |
 | `part1` | `(<parsed>, ...) -> int` | Answer to part 1. |
 | `part2` | `(<parsed>, ...) -> int` | Answer to part 2. |

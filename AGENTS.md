@@ -17,15 +17,15 @@ uv run --no-sync ty check
 ```
 
 - One test: `uv run --no-sync pytest tests/2025/test_01.py::test_sample_parts`
-- One day's printed output: `uv run --no-sync pytest 'tests/test_cli.py::test_run_prints_sample_answers[7]'` (the id is the unpadded day).
+- One day's printed output: `uv run --no-sync pytest 'tests/test_cli.py::test_run_prints_sample_answers[2025-7]'` (the id is the year and the unpadded day).
 - A day on its committed sample: `uv run python -c "import runpy; runpy.run_path('2025/01/main.py')['run']('sample')"`
 
 ## Conventions
 
 Day modules:
 
-- A new day touches `<year>/<DD>/main.py`, `inputs/<year>/<DD>.sample.txt`, `tests/<year>/test_<DD>.py`, (for 2025) an entry in `EXPECTED_SAMPLE_OUTPUT` in `tests/test_cli.py`, the tables in `docs/reference/day-modules.md`, and the day count in `README.md`.
-- Set `YEAR` and `DAY` to match the folder, also when copying an existing day: `run()` finds the input from them, not from the path.
+- A new day touches `<year>/<DD>/main.py`, `inputs/<year>/<DD>.sample.txt`, `tests/<year>/test_<DD>.py`, an entry keyed `(year, day)` in `EXPECTED_SAMPLE_OUTPUT` in `tests/test_cli.py` (the suite fails without it), the tables in `docs/reference/day-modules.md`, and the day count in `README.md`.
+- Set `YEAR` and `DAY` to match the folder, also when copying an existing day: `run()` finds the input from them, not from the path. `tests/test_cli.py` checks them.
 - `run(variant: str | None = None)` is the only function that prints, exactly `Part 1: <answer>` and `Part 2: <answer>`. Put tuning knobs in keyword defaults on `part1`/`part2` (day 8's `pairs_to_connect=1000`); scripts take no command-line flags.
 - Model parsed records as `@dataclass(frozen=True)`, prefix helpers with `_`, and reject malformed input with a descriptive `ValueError`, the only exception type day code raises.
 - Start every `.py` file except `__init__.py` with `from __future__ import annotations`. Keep the `sys.modules` registration in `tests/_helpers.py`'s `load_module`: frozen dataclasses with postponed annotations need their module registered.
@@ -60,7 +60,7 @@ Dependencies:
 
 ## Docs
 
-- Before adding a day or the first day of a new year, read `docs/guides/adding-a-day.md`: skeletons for `main.py` and its test that already pass ruff and ty, including the `load_module` name and `Protocol` the test needs.
+- Before adding a day or the first day of a new year, read `docs/guides/adding-a-day.md`: skeletons for `main.py` and its test that already pass ruff and ty, including the `load_day` call and `Protocol` the test needs.
 - Before changing a day's signature or printed output, read `docs/reference/day-modules.md`, and update it in the same change.
 - Before changing `utils/`, read `docs/reference/api.md`.
 - Before changing structure, imports, test layout or CI, read `docs/architecture/overview.md`; each design decision names the commit holding its full rationale (`git show <hash>`).

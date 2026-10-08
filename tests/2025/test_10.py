@@ -4,10 +4,8 @@ from typing import Protocol, cast
 
 import pytest
 
-from tests._helpers import PROJECT_ROOT, load_module
+from tests._helpers import load_day
 from utils.io import read_input_lines
-
-DAY10_PATH = PROJECT_ROOT / "2025" / "10" / "main.py"
 
 
 class Day10Module(Protocol):
@@ -20,7 +18,7 @@ class Day10Module(Protocol):
     def part2(self, machines: object) -> int: ...
 
 
-day10 = cast(Day10Module, load_module("aoc2025_day10", DAY10_PATH))
+day10 = cast(Day10Module, load_day(2025, 10))
 
 
 def test_sample_parts() -> None:

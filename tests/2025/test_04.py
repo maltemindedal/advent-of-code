@@ -2,10 +2,8 @@ from __future__ import annotations
 
 from typing import Protocol, cast
 
-from tests._helpers import PROJECT_ROOT, load_module
+from tests._helpers import load_day
 from utils.io import read_input_lines
-
-DAY04_PATH = PROJECT_ROOT / "2025" / "04" / "main.py"
 
 
 class Day04Module(Protocol):
@@ -16,7 +14,7 @@ class Day04Module(Protocol):
     def part2(self, grid: object) -> int: ...
 
 
-day04 = cast(Day04Module, load_module("aoc2025_day04", DAY04_PATH))
+day04 = cast(Day04Module, load_day(2025, 4))
 
 
 def test_sample_accessible_rolls() -> None:

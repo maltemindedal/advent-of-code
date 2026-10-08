@@ -6,10 +6,7 @@ from typing import Protocol, cast
 
 import pytest
 
-from tests._helpers import PROJECT_ROOT, load_module
-
-DAY09_PATH = PROJECT_ROOT / "2025" / "09" / "main.py"
-
+from tests._helpers import load_day
 
 Point2D = tuple[int, int]
 
@@ -26,7 +23,7 @@ class Day09Module(Protocol):
     ) -> tuple[list[float], list[float], list[list[int]]]: ...
 
 
-day09 = cast(Day09Module, load_module("aoc2025_day09", DAY09_PATH))
+day09 = cast(Day09Module, load_day(2025, 9))
 
 
 SAMPLE_INPUT = [
