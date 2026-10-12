@@ -63,7 +63,7 @@ utils/           shared package: input file I/O and typed z3 wrappers
 tests/           pytest suite: per-day tests in tests/<year>/, plus utils and output tests
 docs/            documentation
 .github/         CI workflow and Dependabot configuration
-.agents/         a vendored skill for AI coding agents
+.agents/         verify-advent-of-code, a skill for AI coding agents
 AGENTS.md        guidelines for AI coding agents
 CONTRIBUTING.md  checks and conventions for contributors
 LICENSE          MIT License for the code

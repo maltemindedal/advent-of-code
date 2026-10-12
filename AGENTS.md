@@ -16,6 +16,7 @@ uv run --no-sync ruff format --check .
 uv run --no-sync ty check
 ```
 
+- End to end with kept evidence: `.agents/skills/verify-advent-of-code/scripts/verify.sh all` (the gate, then every day on its sample compared with the pinned output; see its `SKILL.md`).
 - One test: `uv run --no-sync pytest tests/2025/test_01.py::test_sample_parts`
 - One day's printed output: `uv run --no-sync pytest 'tests/test_cli.py::test_run_prints_sample_answers[2025-7]'` (the id is the year and the unpadded day).
 - A day on its committed sample: `uv run python -c "import runpy; runpy.run_path('2025/01/main.py')['run']('sample')"`
@@ -56,7 +57,6 @@ Dependencies:
 - `ruff format --check .` also checks fenced `python` blocks in every Markdown file, this one and `docs/` included. Write code examples already formatted.
 - Suppress a ty diagnostic only with `# ty: ignore[<rule>]`; `# type: ignore` is not honoured. The tree has no ty suppressions; fix the type where you can.
 - Deliberate behaviour pinned by tests, not bugs: on the sample, day 8 prints `Part 1: 20` (`run` uses 1000 pairs; the puzzle's 40 needs `pairs_to_connect=10`), day 11 prints `Part 2: 0`, and day 12 prints one `Solution:` line. Day 10's `INF = 10**18` sentinel and day 12's area-only shortcut for regions over 220 cells or 14 pieces are deliberate too.
-- Treat `.agents/skills/` as vendored: `skills-lock.json` holds a hash of its files, so editing or reformatting them leaves the lock stale.
 
 ## Docs
 
