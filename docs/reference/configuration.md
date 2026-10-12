@@ -112,7 +112,3 @@ The uv version CI uses is not pinned. With no `version` input and no `required-v
 | `github-actions` (updates the pinned SHAs and their version comments) | Weekly |
 
 Neither entry sets `cooldown`, so Dependabot applies its own default cooldown to version updates. That default is GitHub's to change; it is currently 3 days after a release before it is proposed (per the [Dependabot options reference](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference), checked 2026-10-06). Security updates are never delayed.
-
-## `skills-lock.json`
-
-Records the source (`wshobson/agents` on GitHub) and content hash of the AI-agent skill vendored under `.agents/skills/python-performance-optimization/`. No tool in this repository reads it.

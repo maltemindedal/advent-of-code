@@ -17,7 +17,7 @@ The repository holds one person's Advent of Code solutions across years, in one 
 | Tests | `tests/` | Per-day tests, `utils` tests and a test of every day's printed output. |
 | CI | `.github/workflows/ci.yml` | Tests on Python 3.11 to 3.14; lint, format and type checks. |
 | Dependabot | `.github/dependabot.yml` | Weekly update pull requests for `uv.lock` and the CI actions. |
-| Agent guidance | `AGENTS.md`, `.agents/skills/` | Instructions and a vendored skill for AI coding agents. Not used by the code. |
+| Agent guidance | `AGENTS.md`, `.agents/skills/` | Instructions for AI coding agents and the `verify-advent-of-code` skill, which runs the gate and every day on its sample. Not used by the code. |
 
 ## Data flow
 
