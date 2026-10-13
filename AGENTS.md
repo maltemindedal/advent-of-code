@@ -49,6 +49,11 @@ Dependencies:
 - ty is 0.0.x with `all = "error"`, so a ty bump can add failing rules: read its changelog and raise the floor to the version you verified. Keep the `z3-solver>=4.12.4` floor low: the suite passes on 4.12.4.0.
 - Leave release timing to Dependabot's default cooldown. The owner removed the 7-day `cooldown` and the waiting rule for manual upgrades in `b9f512f`; add no cooldown, `exclude-newer` or release-age rule.
 
+## Cursor Cloud specific instructions
+
+- The environment comes from `.cursor/environment.json`: uv, the CI matrix's Pythons (read from `.github/workflows/ci.yml`; keep that matrix a one-line list), and `uv sync --locked --all-groups`. Details are in [`docs/reference/configuration.md`](docs/reference/configuration.md#cursorenvironmentjson).
+- The gate is `.agents/skills/verify-advent-of-code/scripts/verify.sh all`. It ends in `RESULT: PASS with SKIP (all)` because no real puzzle inputs exist there; that skip is expected.
+
 ## Gotchas
 
 - Commit only the puzzle's example input, saved as `inputs/<year>/<DD>.sample.txt`. `.gitignore` ignores every other file under `inputs/`, so the filename is the only protection; never `git add -f` there. Copy no puzzle text beyond the example: the samples are a deliberate exception, excluded from the MIT license.
