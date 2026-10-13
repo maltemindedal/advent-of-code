@@ -1,3 +1,3 @@
 {
-    "install": "set -euo pipefail\nif ! command -v uv >/dev/null 2>&1; then\n  curl -LsSf https://astral.sh/uv/install.sh | sh\n  sudo ln -sfn \"${HOME}/.local/bin/uv\" /usr/local/bin/uv\n  sudo ln -sfn \"${HOME}/.local/bin/uvx\" /usr/local/bin/uvx\nfi\nuv python install 3.11 3.12 3.13 3.14\nuv sync --locked --all-groups\n"
+    "install": "set -euo pipefail\nif ! command -v uv >/dev/null 2>&1; then\n  curl -LsSf https://astral.sh/uv/install.sh | UV_NO_MODIFY_PATH=1 sh\n  sudo ln -sfn \"${HOME}/.local/bin/uv\" /usr/local/bin/uv\n  sudo ln -sfn \"${HOME}/.local/bin/uvx\" /usr/local/bin/uvx\nfi\n# Install the CI matrix's Pythons, read from the workflow so there is one list.\npythons=\"$(sed -n 's/^ *python-version: *\\[\\(.*\\)\\] *$/\\1/p' .github/workflows/ci.yml | tr -d '\",')\"\nif [ -z \"$pythons\" ]; then\n  echo \"no python-version matrix found in .github/workflows/ci.yml\" >&2\n  exit 1\nfi\nuv python install $pythons\nuv sync --locked --all-groups\n"
 }

@@ -119,6 +119,6 @@ Cursor Cloud Agents read this file from the revision that starts the agent. It i
 
 | Key | Value | Effect |
 | --- | --- | --- |
-| `install` | shell script | If `uv` is missing from `PATH`, runs `https://astral.sh/uv/install.sh` and links `uv` and `uvx` into `/usr/local/bin`. Installs CPython 3.11, 3.12, 3.13, and 3.14, the matrix in `.github/workflows/ci.yml`. Then runs `uv sync --locked --all-groups`. |
+| `install` | shell script | If `uv` is missing from `PATH`, runs `https://astral.sh/uv/install.sh` with `UV_NO_MODIFY_PATH=1` (so it does not edit shell profiles) and links `uv` and `uvx` into `/usr/local/bin`. Reads the `python-version` matrix from `.github/workflows/ci.yml` (today 3.11, 3.12, 3.13 and 3.14) and installs those CPythons with `uv python install`, failing if it finds no one-line matrix there, so the list exists only in CI. Then runs `uv sync --locked --all-groups`. |
 
-The file sets no `start` key. The checks and each day script are processes that exit, so the environment starts no service. This install script passes no uv version. CI does not pin one either. See the workflow section above.
+The file sets no `start` key. The checks and each day script are processes that exit, so the environment starts no service. This install script passes no uv version. CI does not pin one either (checked 2026-10-13 against `.github/workflows/ci.yml`). See the workflow section above.
