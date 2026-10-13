@@ -1,0 +1,3 @@
+{
+    "install": "set -euo pipefail\nif ! command -v uv >/dev/null 2>&1; then\n  curl -LsSf https://astral.sh/uv/install.sh | sh\n  sudo ln -sfn \"${HOME}/.local/bin/uv\" /usr/local/bin/uv\n  sudo ln -sfn \"${HOME}/.local/bin/uvx\" /usr/local/bin/uvx\nfi\nuv python install 3.11 3.12 3.13 3.14\nuv sync --locked --all-groups\n"
+}

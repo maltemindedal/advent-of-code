@@ -112,3 +112,13 @@ The uv version CI uses is not pinned. With no `version` input and no `required-v
 | `github-actions` (updates the pinned SHAs and their version comments) | Weekly |
 
 Neither entry sets `cooldown`, so Dependabot applies its own default cooldown to version updates. That default is GitHub's to change; it is currently 3 days after a release before it is proposed (per the [Dependabot options reference](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference), checked 2026-10-06). Security updates are never delayed.
+
+## `.cursor/environment.json`
+
+Cursor Cloud Agents read this file from the revision that starts the agent. It is the only tracked file under `.cursor/`.
+
+| Key | Value | Effect |
+| --- | --- | --- |
+| `install` | shell script | If `uv` is missing from `PATH`, runs `https://astral.sh/uv/install.sh` and links `uv` and `uvx` into `/usr/local/bin`. Installs CPython 3.11, 3.12, 3.13, and 3.14, the matrix in `.github/workflows/ci.yml`. Then runs `uv sync --locked --all-groups`. |
+
+The file sets no `start` key. The checks and each day script are processes that exit, so the environment starts no service. This install script passes no uv version. CI does not pin one either. See the workflow section above.
