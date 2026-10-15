@@ -38,7 +38,7 @@ def get_input_path(year: int | str, day: int | str, variant: str | None = None) 
     day_part = _day_str(day)
 
     filename = day_part
-    if variant:
+    if variant is not None and variant != "":
         filename = f"{filename}.{variant}"
 
     return _INPUT_ROOT / year_part / f"{filename}.txt"
