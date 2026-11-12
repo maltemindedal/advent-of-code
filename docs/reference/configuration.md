@@ -35,13 +35,11 @@ No `required-version` is set, so uv does not enforce a minimum uv version.
 
 ### `[dependency-groups]`
 
-| Group | Members | Locked version (`uv.lock`, 2026-10-05) |
-| --- | --- | --- |
-| `dev` | `pytest>=9.0.3` | 9.1.1 |
-| | `ruff>=0.16.8` | 0.16.8 |
-| | `ty>=0.0.83` | 0.0.83 |
+| Group | Members |
+| --- | --- |
+| `dev` | `pytest`, `ruff`, `ty` |
 
-The runtime dependency `z3-solver` is locked at 5.1.0.0. `uv.lock` is the source of truth for locked versions; Dependabot proposes updates weekly (see [`.github/dependabot.yml`](#githubdependabotyml)).
+`pyproject.toml` holds each floor and `uv.lock` holds each locked version; this page copies neither, because Dependabot changes them weekly. To list the locked versions of the direct dependencies, run `uv tree --depth 1 --frozen`.
 
 ### `[tool.pytest]`
 
@@ -61,7 +59,8 @@ The runtime dependency `z3-solver` is locked at 5.1.0.0. `uv.lock` is the source
 | `target-version` | `"py311"` | Lint and format for Python 3.11 syntax. |
 | `lint.select` | `ANN`, `B`, `BLE`, `C4`, `E`, `F`, `I`, `ISC`, `PGH`, `PIE`, `PLE`, `PLW`, `PT`, `PTH`, `RUF`, `S`, `T10`, `UP`, `W` | Enabled rule families. `ANN` requires annotations on every function's parameters and return type. |
 | `lint.ignore` | `["PLW2901"]` | Allows reassigning a loop variable, for example `line = line.strip()`, the parsing idiom the solutions use. |
-| `lint.per-file-ignores` | `"tests/**" = ["S101", "S311"]` | Tests may use plain `assert` and the non-cryptographic `random` module. |
+| `lint.isort.required-imports` | `["from __future__ import annotations"]` | `I002` fails any `.py` file that lacks this import. |
+| `lint.per-file-ignores` | `"tests/**" = ["S101", "S311"]`, `"**/__init__.py" = ["I002"]` | Tests may use plain `assert` and the non-cryptographic `random` module. `__init__.py` files need no `from __future__` import. |
 | `format.quote-style` | `"double"` | Formatter uses double quotes. |
 | `format.indent-style` | `"space"` | Formatter indents with spaces. |
 
@@ -106,10 +105,12 @@ The uv version CI uses is not pinned. With no `version` input and no `required-v
 
 ## `.github/dependabot.yml`
 
-| Ecosystem | Schedule |
-| --- | --- |
-| `uv` (updates `uv.lock`) | Weekly |
-| `github-actions` (updates the pinned SHAs and their version comments) | Weekly |
+| Ecosystem | Schedule | `versioning-strategy` |
+| --- | --- | --- |
+| `uv` (updates `uv.lock`) | Weekly | `increase-if-necessary` |
+| `github-actions` (updates the pinned SHAs and their version comments) | Weekly | not set |
+
+`increase-if-necessary` leaves a `pyproject.toml` requirement unchanged when it already allows the new release, and only updates `uv.lock`. Without it, Dependabot raised `z3-solver>=4.12.4` to the locked version on each bump (`0d3ddba`, `942388f`), and it raises the dev-tool floors the same way. Dependabot's `uv` updater is the Python `RequirementsUpdater`, which returns a `pyproject.toml` requirement unchanged under this strategy when the new version already satisfies it (`uv/lib/dependabot/uv/update_checker/requirements_updater.rb` and `python/lib/dependabot/python/update_checker/requirements_updater.rb` in `dependabot/dependabot-core` at `main`, checked 2026-11-12). That code still bumps requirements it classes as `dev-dependencies`, so the dev-tool floors may keep rising. `tests/test_project_policy.py` fails if the `z3-solver` floor rises anyway.
 
 Neither entry sets `cooldown`, so Dependabot applies its own default cooldown to version updates. That default is GitHub's to change; it is currently 3 days after a release before it is proposed (per the [Dependabot options reference](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference), checked 2026-10-06). Security updates are never delayed.
 

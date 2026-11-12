@@ -42,13 +42,7 @@ uv creates a virtual environment in `.venv/` and installs the solver library `z3
 uv run pytest
 ```
 
-The run ends with a summary line such as:
-
-```text
-============================= 112 passed in 8.27s ==============================
-```
-
-The count was 112 on 2026-10-05 and grows as days and tests are added. The tests need no puzzle input of your own: they use the sample inputs committed under `inputs/2025/`.
+The run ends with a summary line that reports every test as passed, for example `N passed in 6.2s`, with no `failed` or `error` count. The number grows as days and tests are added. The tests need no puzzle input of your own: they use the sample inputs committed under `inputs/2025/`.
 
 ## 5. Run a solution on the sample input
 

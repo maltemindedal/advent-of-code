@@ -44,11 +44,12 @@ The day folders are not packages, and their names are not valid Python identifie
 
 ## Testing approach
 
-The suite has three layers:
+The suite has four layers:
 
 1. **Sample tests** in `tests/<year>/test_<DD>.py` check each part against the expected answer for the committed sample input. Many days add edge cases and error paths.
 2. **Output tests** in `tests/test_cli.py` pin the exact text `run("sample")` prints for every `<year>/<DD>/main.py` in the repository, and fail when a day has no pinned entry. They protect the `Part 1:`/`Part 2:` labels and the `YEAR`/`DAY` wiring, which the sample tests bypass; `YEAR` and `DAY` are also checked directly against the module's folder.
 3. **Reference tests** for days whose algorithm was rewritten for speed (2025 days 8 and 9). The test file carries a simple reference implementation of the slower approach the solution replaced, and requires the optimised version to match it on generated inputs (`cc760bb`, `9bc0312`).
+4. **Policy tests** in `tests/test_project_policy.py` read `pyproject.toml` and `.github/dependabot.yml` and fail on owner decisions that were undone before: a raised `z3-solver` floor (`942388f`) and a release delay (`e9a074a`, removed in `b9f512f`). Each failure message names the fix.
 
 No test needs a real puzzle input, so the suite runs on a fresh clone and in CI.
 

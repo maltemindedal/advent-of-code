@@ -29,7 +29,7 @@ Day modules:
 - Set `YEAR` and `DAY` to match the folder, also when copying an existing day: `run()` finds the input from them, not from the path. `tests/test_cli.py` checks them.
 - `run(variant: str | None = None)` is the only function that prints, exactly `Part 1: <answer>` and `Part 2: <answer>`. Put tuning knobs in keyword defaults on `part1`/`part2` (day 8's `pairs_to_connect=1000`); scripts take no command-line flags.
 - Model parsed records as `@dataclass(frozen=True)`, prefix helpers with `_`, and reject malformed input with a descriptive `ValueError`, the only exception type day code raises.
-- Start every `.py` file except `__init__.py` with `from __future__ import annotations`. Keep the `sys.modules` registration in `tests/_helpers.py`'s `load_module`: frozen dataclasses with postponed annotations need their module registered.
+- Keep the `sys.modules` registration in `tests/_helpers.py`'s `load_module`: frozen dataclasses with postponed annotations need their module registered.
 - Docstrings are optional; when a function has one, follow it with one blank line.
 - Pin before you optimise: a `test(dayNN)` commit adds a naive reference implementation to the test file and compares against it on inputs from `random.Random(20250928)`, then a separate `perf(dayNN)` commit changes the solution (`cc760bb`, then `123d67a`).
 - Report unused public code (day 8's `manhattan`, `make_solver` and `Expr` in `utils/z3_helpers.py`, the `available_ids` parameter of day 5's `part2`) instead of deleting it; remove only what your own change left unused.
@@ -39,15 +39,14 @@ Commits and pull requests:
 - Conventional Commits, `type(scope): summary`, with a lowercase imperative summary (`perf(day08): pick the shortest pairs with a heap instead of sorting all of them`); types and scopes are in `CONTRIBUTING.md`. One logical change per commit.
 - The body says why, then ends with a `Verified:` paragraph naming the commands run and the test count. Every number in a commit message or doc must be reproducible from the commands it names.
 - Open a PR against `main`: CI runs only on PRs and pushes to `main`, so a pushed branch alone runs nothing. Shape the body on `.github/pull_request_template.md`; `gh pr create --body` does not insert it.
-- Merge with a merge commit (`gh pr merge --merge`): docs and commit messages cite commits by hash. Confirm `gh pr checks` is green first, since no branch rule stops a red PR from merging.
 - Update the affected `docs/` page in the same PR, and list any new page in `docs/README.md`. Community files (`CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`) live at the root.
 - When a doc states an outside fact (a tool default, a third-party page), add the date you checked it ("checked 2026-10-05"); write `TODO(verify)` where you could not confirm it.
 
 Dependencies:
 
 - Run `uv lock` after editing `pyproject.toml` and commit both files together; CI's `--locked` install fails on a mismatch.
-- ty is 0.0.x with `all = "error"`, so a ty bump can add failing rules: read its changelog and raise the floor to the version you verified. Keep the `z3-solver>=4.12.4` floor low: the suite passes on 4.12.4.0.
-- Leave release timing to Dependabot's default cooldown. The owner removed the 7-day `cooldown` and the waiting rule for manual upgrades in `b9f512f`; add no cooldown, `exclude-newer` or release-age rule.
+- ty is 0.0.x with `all = "error"`, so a ty bump can add failing rules: read its changelog and raise the floor to the version you verified. The `z3-solver>=4.12.4` floor stays low because the suite passes on 4.12.4.0; `.github/dependabot.yml` sets `versioning-strategy: increase-if-necessary` so Dependabot leaves it alone, and `tests/test_project_policy.py` fails if it rises anyway.
+- Leave release timing to Dependabot's default cooldown (the owner removed the 7-day `cooldown` and the waiting rule for manual upgrades in `b9f512f`). `tests/test_project_policy.py` rejects a `cooldown` or `exclude-newer`; do not skip a release for its age either.
 
 ## Cursor Cloud specific instructions
 
@@ -69,5 +68,5 @@ Dependencies:
 - Before changing a day's signature or printed output, read `docs/reference/day-modules.md`, and update it in the same change.
 - Before changing `utils/`, read `docs/reference/api.md`.
 - Before changing structure, imports, test layout or CI, read `docs/architecture/overview.md`; each design decision names the commit holding its full rationale (`git show <hash>`).
-- When changing `pyproject.toml` (dependencies included), `.gitignore`, `.editorconfig`, CI or Dependabot, update `docs/reference/configuration.md`; its locked-version table lags Dependabot's bumps.
+- When changing `pyproject.toml` (dependencies included), `.gitignore`, `.editorconfig`, CI or Dependabot, update `docs/reference/configuration.md`. It records no version numbers: `pyproject.toml` and `uv.lock` are the sources.
 - To call `part1`/`part2` with other arguments (day folders are not importable packages) or to debug an input-path error, read `docs/guides/running-a-day.md`.
