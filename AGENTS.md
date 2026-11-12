@@ -39,7 +39,11 @@ Commits and pull requests:
 - Conventional Commits, `type(scope): summary`, with a lowercase imperative summary (`perf(day08): pick the shortest pairs with a heap instead of sorting all of them`); types and scopes are in `CONTRIBUTING.md`. One logical change per commit.
 - The body says why, then ends with a `Verified:` paragraph naming the commands run and the test count. Every number in a commit message or doc must be reproducible from the commands it names.
 - Open a PR against `main`: CI runs only on PRs and pushes to `main`, so a pushed branch alone runs nothing. Shape the body on `.github/pull_request_template.md`; `gh pr create --body` does not insert it.
-- Merge with a merge commit (`gh pr merge --merge`): docs and commit messages cite commits by hash. Confirm `gh pr checks` is green first, since no branch rule stops a red PR from merging.
+- Choose the merge method per PR; the repo allows all three. Merge only after `gh pr checks` shows every check green, whether or not a branch rule enforces it.
+- Merge commit (`gh pr merge --merge`) when the PR has several commits that each hold one logical change, or when a doc or commit message cites one of its commits by hash: only this method keeps those hashes. Use it when unsure.
+- Squash (`gh pr merge --squash --subject "<type(scope): summary>" --body "<why, then Verified:>"`) when the commits are fix-ups or review rounds of one logical change. Write the message yourself as a Conventional Commit ending in a `Verified:` paragraph.
+- Rebase (`gh pr merge --rebase`) when the PR is one commit whose message already follows the conventions, such as a Dependabot bump: it lands that message unchanged, with no merge commit.
+- After a squash or rebase, cite only the new hash on `main`: the branch's hashes are not in its history.
 - Update the affected `docs/` page in the same PR, and list any new page in `docs/README.md`. Community files (`CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`) live at the root.
 - When a doc states an outside fact (a tool default, a third-party page), add the date you checked it ("checked 2026-10-05"); write `TODO(verify)` where you could not confirm it.
 

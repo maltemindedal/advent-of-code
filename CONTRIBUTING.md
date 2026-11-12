@@ -51,7 +51,7 @@ Scopes name the area touched: a day (`day08`), a tool (`ruff`, `ty`, `pytest`, `
 
 ## Pull requests
 
-Work on a branch and open a pull request against `main`. CI must pass before merging. Pull requests are merged with a merge commit.
+Work on a branch and open a pull request against `main`. CI must pass before merging. The merge method is chosen per pull request: a merge commit when the branch has several commits worth keeping or one of them is cited by hash, a squash when the commits are fix-ups of one change, and a rebase for a single commit whose message already follows the conventions.
 
 ## Documentation
 
