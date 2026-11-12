@@ -35,13 +35,11 @@ No `required-version` is set, so uv does not enforce a minimum uv version.
 
 ### `[dependency-groups]`
 
-| Group | Members | Locked version (`uv.lock`, 2026-10-05) |
-| --- | --- | --- |
-| `dev` | `pytest>=9.0.3` | 9.1.1 |
-| | `ruff>=0.16.8` | 0.16.8 |
-| | `ty>=0.0.83` | 0.0.83 |
+| Group | Members |
+| --- | --- |
+| `dev` | `pytest`, `ruff`, `ty` |
 
-The runtime dependency `z3-solver` is locked at 5.1.0.0. `uv.lock` is the source of truth for locked versions; Dependabot proposes updates weekly (see [`.github/dependabot.yml`](#githubdependabotyml)).
+`pyproject.toml` holds each floor and `uv.lock` holds each locked version; this page copies neither, because Dependabot changes them weekly. To list the locked versions of the direct dependencies, run `uv tree --depth 1 --frozen`.
 
 ### `[tool.pytest]`
 

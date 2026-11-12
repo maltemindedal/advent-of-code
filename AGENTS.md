@@ -69,5 +69,5 @@ Dependencies:
 - Before changing a day's signature or printed output, read `docs/reference/day-modules.md`, and update it in the same change.
 - Before changing `utils/`, read `docs/reference/api.md`.
 - Before changing structure, imports, test layout or CI, read `docs/architecture/overview.md`; each design decision names the commit holding its full rationale (`git show <hash>`).
-- When changing `pyproject.toml` (dependencies included), `.gitignore`, `.editorconfig`, CI or Dependabot, update `docs/reference/configuration.md`; its locked-version table lags Dependabot's bumps.
+- When changing `pyproject.toml` (dependencies included), `.gitignore`, `.editorconfig`, CI or Dependabot, update `docs/reference/configuration.md`. It records no version numbers: `pyproject.toml` and `uv.lock` are the sources.
 - To call `part1`/`part2` with other arguments (day folders are not importable packages) or to debug an input-path error, read `docs/guides/running-a-day.md`.
