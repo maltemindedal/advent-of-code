@@ -106,10 +106,12 @@ The uv version CI uses is not pinned. With no `version` input and no `required-v
 
 ## `.github/dependabot.yml`
 
-| Ecosystem | Schedule |
-| --- | --- |
-| `uv` (updates `uv.lock`) | Weekly |
-| `github-actions` (updates the pinned SHAs and their version comments) | Weekly |
+| Ecosystem | Schedule | `versioning-strategy` |
+| --- | --- | --- |
+| `uv` (updates `uv.lock`) | Weekly | `increase-if-necessary` |
+| `github-actions` (updates the pinned SHAs and their version comments) | Weekly | not set |
+
+`increase-if-necessary` leaves a `pyproject.toml` requirement unchanged when it already allows the new release, and only updates `uv.lock`. Without it, Dependabot raised `z3-solver>=4.12.4` to the locked version on each bump (`0d3ddba`, `942388f`), and it raises the dev-tool floors the same way. The options reference lists `uv` among the ecosystems that support `versioning-strategy`, but does not say which values `uv` accepts (checked 2026-11-12); TODO(verify) on the first Dependabot run after this change. `tests/test_project_policy.py` fails if the `z3-solver` floor rises anyway.
 
 Neither entry sets `cooldown`, so Dependabot applies its own default cooldown to version updates. That default is GitHub's to change; it is currently 3 days after a release before it is proposed (per the [Dependabot options reference](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference), checked 2026-10-06). Security updates are never delayed.
 

@@ -5,6 +5,8 @@ updates:
       directory: /
       schedule:
           interval: weekly
+      # Keep pyproject.toml floors (z3-solver>=4.12.4) when they already allow the new release.
+      versioning-strategy: increase-if-necessary
 
     - package-ecosystem: github-actions
       directory: /
