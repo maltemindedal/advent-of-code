@@ -22,6 +22,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
+                # The "Protect Main" ruleset can require each "Python <version>" job by name: update its checks when this list changes.
                 python-version: ["3.11", "3.12", "3.13", "3.14"]
 
         env:
