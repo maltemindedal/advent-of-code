@@ -46,8 +46,8 @@ Commits and pull requests:
 Dependencies:
 
 - Run `uv lock` after editing `pyproject.toml` and commit both files together; CI's `--locked` install fails on a mismatch.
-- ty is 0.0.x with `all = "error"`, so a ty bump can add failing rules: read its changelog and raise the floor to the version you verified. Keep the `z3-solver>=4.12.4` floor low: the suite passes on 4.12.4.0.
-- Leave release timing to Dependabot's default cooldown. The owner removed the 7-day `cooldown` and the waiting rule for manual upgrades in `b9f512f`; add no cooldown, `exclude-newer` or release-age rule.
+- ty is 0.0.x with `all = "error"`, so a ty bump can add failing rules: read its changelog and raise the floor to the version you verified. The `z3-solver>=4.12.4` floor stays low because the suite passes on 4.12.4.0; Dependabot raises it with each bump and `tests/test_project_policy.py` fails until it is restored.
+- Leave release timing to Dependabot's default cooldown (the owner removed the 7-day `cooldown` and the waiting rule for manual upgrades in `b9f512f`). `tests/test_project_policy.py` rejects a `cooldown` or `exclude-newer`; do not skip a release for its age either.
 
 ## Cursor Cloud specific instructions
 
