@@ -29,7 +29,7 @@ Day modules:
 - Set `YEAR` and `DAY` to match the folder, also when copying an existing day: `run()` finds the input from them, not from the path. `tests/test_cli.py` checks them.
 - `run(variant: str | None = None)` is the only function that prints, exactly `Part 1: <answer>` and `Part 2: <answer>`. Put tuning knobs in keyword defaults on `part1`/`part2` (day 8's `pairs_to_connect=1000`); scripts take no command-line flags.
 - Model parsed records as `@dataclass(frozen=True)`, prefix helpers with `_`, and reject malformed input with a descriptive `ValueError`, the only exception type day code raises.
-- Start every `.py` file except `__init__.py` with `from __future__ import annotations`. Keep the `sys.modules` registration in `tests/_helpers.py`'s `load_module`: frozen dataclasses with postponed annotations need their module registered.
+- Keep the `sys.modules` registration in `tests/_helpers.py`'s `load_module`: frozen dataclasses with postponed annotations need their module registered.
 - Docstrings are optional; when a function has one, follow it with one blank line.
 - Pin before you optimise: a `test(dayNN)` commit adds a naive reference implementation to the test file and compares against it on inputs from `random.Random(20250928)`, then a separate `perf(dayNN)` commit changes the solution (`cc760bb`, then `123d67a`).
 - Report unused public code (day 8's `manhattan`, `make_solver` and `Expr` in `utils/z3_helpers.py`, the `available_ids` parameter of day 5's `part2`) instead of deleting it; remove only what your own change left unused.

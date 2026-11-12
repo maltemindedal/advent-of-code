@@ -61,7 +61,8 @@ The runtime dependency `z3-solver` is locked at 5.1.0.0. `uv.lock` is the source
 | `target-version` | `"py311"` | Lint and format for Python 3.11 syntax. |
 | `lint.select` | `ANN`, `B`, `BLE`, `C4`, `E`, `F`, `I`, `ISC`, `PGH`, `PIE`, `PLE`, `PLW`, `PT`, `PTH`, `RUF`, `S`, `T10`, `UP`, `W` | Enabled rule families. `ANN` requires annotations on every function's parameters and return type. |
 | `lint.ignore` | `["PLW2901"]` | Allows reassigning a loop variable, for example `line = line.strip()`, the parsing idiom the solutions use. |
-| `lint.per-file-ignores` | `"tests/**" = ["S101", "S311"]` | Tests may use plain `assert` and the non-cryptographic `random` module. |
+| `lint.isort.required-imports` | `["from __future__ import annotations"]` | `I002` fails any `.py` file that lacks this import. |
+| `lint.per-file-ignores` | `"tests/**" = ["S101", "S311"]`, `"**/__init__.py" = ["I002"]` | Tests may use plain `assert` and the non-cryptographic `random` module. `__init__.py` files need no `from __future__` import. |
 | `format.quote-style` | `"double"` | Formatter uses double quotes. |
 | `format.indent-style` | `"space"` | Formatter indents with spaces. |
 
